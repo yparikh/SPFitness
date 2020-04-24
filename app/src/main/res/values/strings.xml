@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">senior_proj</string>
+    <string name="But_CreateAccount">Sign Up</string>
+    <string name="TV_Login">"Health &amp; Fitness App "</string>
+    <string name="eT_email">Email</string>
+    <string name="et_password">Password</string>
+    <string name="BT_login">Log In</string>
+    <string name="TV_signintext">Do not have an account, sign up here</string>
+</resources>
