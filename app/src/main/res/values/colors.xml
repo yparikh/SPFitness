@@ -3,5 +3,8 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="pink">#FF5E95</color>
+    <color name="flamingo">#f8deda</color>
+    <color name="swamp">#428184</color>
+    <color name="junglegreen">#2a563f</color>
+    <color name="softgold">#e4d7bc</color>
 </resources>

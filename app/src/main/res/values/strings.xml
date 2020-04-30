@@ -5,5 +5,20 @@
     <string name="eT_email">Email</string>
     <string name="et_password">Password</string>
     <string name="BT_login">Log In</string>
-    <string name="TV_signintext">Do not have an account, sign up here</string>
+    <string name="TV_signintext">Do not have an account; sign up here</string>
+    <string name="title_activity_main_page">mainPage</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="IV_login_desc">Fitness Tracker Image</string>
+    <string name="IV_signup_desc">Healthy Lifestyle Image</string>
+    <string name="et_signup_name"> Name</string>
+    <string name="BT_verify_email"> Authenticate Email</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="descr_overflow_button">overflow button</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="title_health">Health</string>
+    <string name="title_fitness">Fitness</string>
 </resources>
