@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/mobile_navigation"
+app:startDestination="@+id/navigation_home">
+
+<fragment
+    android:id="@+id/navigation_health"
+    android:name="com.example.senior_proj.ui.health.HealthFragment"
+    android:label="@string/title_health"
+    tools:layout="@layout/fragment_health"/>
+
+<fragment
+    android:id="@+id/navigation_home"
+    android:name="com.example.senior_proj.ui.home.HomeFragment"
+    android:label="@string/title_home"
+    tools:layout="@layout/fragment_home" />
+
+
+
+<fragment
+    android:id="@+id/navigation_fitness"
+    android:name="com.example.senior_proj.ui.fitness.FitnessFragment"
+    android:label="@string/title_fitness"
+    tools:layout="@layout/fragment_fitness" />
+</navigation>

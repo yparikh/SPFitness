@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_health"
+        android:icon="@drawable/ic_health"
+        android:title="@string/title_health"
+        app:cnb_backgroundColor = "#ff785b"
+        app:cnb_iconColor = "#fff"
+        app:cnb_textColor = "#fff"/>
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home"
+        app:cnb_backgroundColor = "#009688"
+        app:cnb_iconColor = "#fff"
+        app:cnb_textColor = "#fff"/>
+
+    <item
+        android:id="@+id/navigation_fitness"
+        android:icon="@drawable/ic_fitness_center_black_24dp"
+        android:title="@string/title_fitness"
+        app:cnb_backgroundColor = "#673AB7"
+        app:cnb_iconColor = "#fff"
+        app:cnb_textColor = "#fff"/>
+
+
+</menu>
