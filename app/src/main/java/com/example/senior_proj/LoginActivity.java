@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "emailpass";
     private FirebaseAuth mAuth;
@@ -27,12 +31,16 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        //getSupportActionBar().hide(); // hide the title bar
         setContentView(R.layout.activity_login);
+        statusBarColor("#4fa8f2");
         mAuth = FirebaseAuth.getInstance();
+    }
 
-
+    public void statusBarColor(String color){
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.parseColor(color));
     }
 
     @Override
@@ -40,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         updateUI(currentUser);
     }
 
@@ -66,29 +75,39 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-
     public void logInClick(View v){
         EditText emailTxt = findViewById(R.id.emailText);
         EditText passTxt = findViewById(R.id.passText);
 
         //if the email text and password text fields are not empty, continue to the sign in method
-        if(!emailTxt.getText().toString().isEmpty() && !passTxt.getText().toString().isEmpty()){
+        if (!emailTxt.getText().toString().isEmpty() && !passTxt.getText().toString().isEmpty()) {
             signIn(emailTxt.getText().toString(), passTxt.getText().toString());
         }
     }
 
     public void signUpClick(View v){
-        Intent intent = new Intent(this, signUpActivity.class);
+
+        Intent intent = new Intent(LoginActivity.this, signUpActivity.class);
         startActivity(intent);
-        finish();
     }
+
 
     private void updateUI(FirebaseUser currentUser) {
         if(currentUser != null){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            if(currentUser.isEmailVerified()) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else{
+                //email has not been verified, notify user
+                Log.d(TAG, "emailVerified:false");
+                Toast.makeText(LoginActivity.this,
+                        "Email has not been verified. Please check your email for link",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
 
 

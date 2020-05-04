@@ -26,20 +26,21 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.senior_proj.MainActivity;
 import com.example.senior_proj.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        TextView Title = root.findViewById(R.id.TV_home_title);
 
-
-
+        String welcomeText = "Welcome "+ Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
+        Title.setText(welcomeText);
         return root;
     }
 

@@ -33,13 +33,17 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "mainactivity" ;
     private FirebaseAuth mAuth;
-    ChipNavigationBar bottomNav;
-    FragmentManager fragmentManager;
+    private ChipNavigationBar bottomNav;
+    private FragmentManager fragmentManager;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Home");
+        setSupportActionBar(toolbar);
         setBottomNavUI(savedInstanceState);
     }
 
@@ -51,13 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
-            case R.id.mn_signOut:
-                signOutUser();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.mn_signOut) {
+            signOutUser();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     public void signOutUser(){
@@ -70,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setBottomNavUI(Bundle savedInstanceState){
-        final Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         bottomNav = findViewById(R.id.bottom_nav);
-        toolbar.setBackgroundColor(Color.parseColor("#009688"));
-        toolbar.setTitle("Home");
-        setStatusBarColor("#ff785b");
+        toolbar.setBackgroundColor(Color.parseColor("#f7b63c"));
+        toolbar.setTitleTextColor(Color.parseColor("#254175"));
+        setStatusBarColor("#BC7F2A");
         if(savedInstanceState==null){
             bottomNav.setItemSelected(R.id.navigation_home, true);
             fragmentManager = getSupportFragmentManager();
@@ -92,21 +94,25 @@ public class MainActivity extends AppCompatActivity {
                 switch (id){
                     case R.id.navigation_home:
                         fragment = new HomeFragment();
-                        toolbar.setBackgroundColor(Color.parseColor("#009688"));
+                        toolbar.setBackgroundColor(Color.parseColor("#f7b63c"));
                         toolbar.setTitle("Home");
-                        setStatusBarColor("#009688");
+                        toolbar.setTitleTextColor(Color.parseColor
+                                ("#254175"));
+                        setStatusBarColor("#BC7F2A");
                         break;
                     case R.id.navigation_health:
                         fragment = new HealthFragment();
-                        toolbar.setBackgroundColor(Color.parseColor("#ff785b"));
+                        toolbar.setBackgroundColor(Color.parseColor("#70ac60"));
                         toolbar.setTitle("Health");
-                        setStatusBarColor("#ff785b");
+                        toolbar.setTitleTextColor(Color.parseColor("#c9ecf3"));
+                        setStatusBarColor("#4E7E43");
                         break;
                     case R.id.navigation_fitness:
                         fragment = new FitnessFragment();
-                        toolbar.setBackgroundColor(Color.parseColor("#673AB7"));
+                        toolbar.setBackgroundColor(Color.parseColor("#973111"));
                         toolbar.setTitle("Fitness");
-                        setStatusBarColor("#673AB7");
+                        toolbar.setTitleTextColor(Color.parseColor("#e0b46e"));
+                        setStatusBarColor("#7C220C");
                         break;
                 }
                 if(fragment!=null){
@@ -124,8 +130,9 @@ public class MainActivity extends AppCompatActivity {
     public void setStatusBarColor(String color){
         Window window =getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(Color.parseColor(color));
     }
+
+
 }

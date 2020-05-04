@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,15 +28,21 @@ public class signUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        //getSupportActionBar().hide(); // hide the title bar
         setContentView(R.layout.activity_sign_up);
+        statusBarColor("#f2cf9a");
         mAuth = FirebaseAuth.getInstance();
+    }
+
+    public void statusBarColor(String color){
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.parseColor(color));
     }
 
 
     public void newUser(String email, String password, final String name){
-        final Intent intent = new Intent(this,  MainActivity.class);
+        //final Intent intent = new Intent(this,  MainActivity.class);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -57,8 +66,13 @@ public class signUpActivity extends AppCompatActivity {
                                             }
                                         }
                                     });
-                            //go to main activity
-                            startActivity(intent);
+                            //display verification button
+                            Button verify = findViewById(R.id.BT_verify);
+                            Button signUP = findViewById(R.id.BT_signup);
+                            verify.setVisibility(View.VISIBLE);
+                            signUP.setVisibility(View.INVISIBLE);
+                            signUP.setEnabled(false);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -72,14 +86,41 @@ public class signUpActivity extends AppCompatActivity {
     }
 
     public void signUpIClick(View v){
-        EditText email_text = findViewById(R.id.et_su_email);
-        EditText pass_text = findViewById(R.id.et_su_pass);
-        EditText name_text = findViewById(R.id.et_name);
-        String email = email_text.getText().toString();
-        String pass = pass_text.getText().toString();
-        String name = name_text.getText().toString();
+        EditText emailText = findViewById(R.id.et_su_email);
+        EditText passText = findViewById(R.id.et_su_pass);
+        EditText nameText = findViewById(R.id.et_name);
+        String email = emailText.getText().toString();
+        String pass = passText.getText().toString();
+        String name = nameText.getText().toString();
 
-        newUser(email, pass, name);
+        if(!nameText.getText().toString().isEmpty() && !emailText.getText().toString().isEmpty() && !passText.getText().toString().isEmpty()){
+            newUser(email, pass, name);
+
+        }
+    }
+
+
+    public void verifyEmail(View v){
+        EditText emailText= findViewById(R.id.et_su_email);
+        //String email = emailText.getText().toString();
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        assert user != null;
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Email sent.");
+                        }
+                    }
+                });
+        Intent i=new Intent(this, LoginActivity.class);
+        //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        finish();
     }
 
 }

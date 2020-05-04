@@ -5,7 +5,7 @@
     <string name="eT_email">Email</string>
     <string name="et_password">Password</string>
     <string name="BT_login">Log In</string>
-    <string name="TV_signintext">Do not have an account; sign up here</string>
+    <string name="TV_signintext">Do not have an account?</string>
     <string name="title_activity_main_page">mainPage</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
@@ -21,4 +21,11 @@
     <string name="sign_out">Sign Out</string>
     <string name="title_health">Health</string>
     <string name="title_fitness">Fitness</string>
+    <string name="TV_signupdesc">Enter your sign up Information here:</string>
+    <string name="TV_loginDesc">Enter Login Information Here:</string>
+    <string name="title_empty">Empty Title</string>
+    <string name="waterProgress">waterProgress</string>
+    <string name="addWater">add water</string>
+    <string name="addCup">Add a Cup</string>
+    <string name="addCustom">Add a Custom Amount</string>
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/softgold"
+    android:background="@color/newOrleans"
     tools:context=".signUpActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/undraw_healthy_lifestyle_6tyl" />
+            app:srcCompat="@drawable/undraw_healthy_options_sdo3" />
 
         <EditText
             android:id="@+id/et_name"
@@ -41,7 +41,7 @@
             android:ems="10"
             android:hint="@string/et_signup_name"
             android:inputType="textPersonName"
-            android:textColor="@color/junglegreen"
+            android:textColor="@color/eastBay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -60,7 +60,7 @@
             android:ems="10"
             android:hint="@string/eT_email"
             android:inputType="textEmailAddress"
-            android:textColor="@color/junglegreen"
+            android:textColor="@color/eastBay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_name" />
@@ -82,7 +82,7 @@
             android:focusable="true"
             android:hint="@string/et_password"
             android:inputType="textPassword"
-            android:textColor="@color/junglegreen"
+            android:textColor="@color/eastBay"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,12 +93,13 @@
             android:layout_width="117dp"
             android:layout_height="59dp"
             android:layout_marginStart="164dp"
-            android:layout_marginLeft="164dp"
             android:layout_marginEnd="163dp"
-            android:layout_marginRight="163dp"
             android:layout_marginBottom="31dp"
             android:onClick="signUpIClick"
             android:text="@string/But_CreateAccount"
+            android:backgroundTint="@color/eastBay"
+            android:elevation="16dp"
+            android:textColor="@color/newOrleans"
             app:layout_constraintBottom_toTopOf="@+id/BT_verify"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -108,15 +109,31 @@
             android:layout_width="205dp"
             android:layout_height="48dp"
             android:layout_marginStart="120dp"
-            android:layout_marginLeft="120dp"
             android:layout_marginEnd="119dp"
-            android:layout_marginRight="119dp"
             android:layout_marginBottom="60dp"
+            android:onClick="verifyEmail"
             android:text="@string/BT_verify_email"
             android:visibility="invisible"
+            android:backgroundTint="@color/eastBay"
+            android:elevation="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="174dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="178dp"
+            android:text="@string/TV_signupdesc"
+            android:textColor="@color/eastBay"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

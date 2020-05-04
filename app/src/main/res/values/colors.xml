@@ -5,6 +5,16 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="flamingo">#f8deda</color>
     <color name="swamp">#428184</color>
-    <color name="junglegreen">#2a563f</color>
-    <color name="softgold">#e4d7bc</color>
+    <color name="newOrleans">#f2cf9a</color>
+    <color name="pictonBlue">#4fa8f2</color>
+    <color name="honeysuckle">#f0fa84</color>
+    <color name="eastBay">#40518d </color>
+    <color name="tropicalBlue">#CEE6F9</color>
+    <color name="persimmon">#ff5a55</color>
+    <color name="astronaut">#254175</color>
+    <color name="saffron"> #f7b63c</color>
+    <color name="mintTulip">#c9ecf3</color>
+    <color name="cucumber">#70ac60</color>
+    <color name="tabasco">#973111</color>
+    <color name="harvestGold">#e0b46e</color>
 </resources>
