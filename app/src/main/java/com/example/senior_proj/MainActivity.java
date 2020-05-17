@@ -15,10 +15,15 @@ import android.view.WindowManager;
 import com.example.senior_proj.ui.fitness.FitnessFragment;
 import com.example.senior_proj.ui.health.HealthFragment;
 import com.example.senior_proj.ui.home.HomeFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,9 +35,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "mainactivity" ;
     private FirebaseAuth mAuth;
+
     private ChipNavigationBar bottomNav;
     private FragmentManager fragmentManager;
     private Toolbar toolbar;
@@ -63,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void signOutUser(){
-        mAuth.getInstance().signOut();
+        FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         //startActivity(intent);
 

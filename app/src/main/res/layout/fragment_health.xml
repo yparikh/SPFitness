@@ -48,12 +48,19 @@
                     android:maxWidth="200dp"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <com.hookedonplay.decoviewlib.DecoView
-                    android:id="@+id/dynamicArcView"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/circularProgressBar"
+                    android:layout_width="195dp"
+                    android:layout_height="205dp"
                     android:layout_centerInParent="true"
-                    app:dv_lineWidth="26dp" />
+                    app:cpb_background_progressbar_color="#b6bbd8"
+                    app:cpb_background_progressbar_width="15dp"
+                    app:cpb_progress_direction="to_right"
+                    app:cpb_progressbar_color_start="#B0EDF5"
+                    app:cpb_progressbar_color_end="#5B36DE"
+                    app:cpb_progressbar_color_direction="bottom_to_top"
+                    app:cpb_progressbar_width="20dp"
+                    app:cpb_round_border="true" />
 
             </RelativeLayout>
 
@@ -77,6 +84,7 @@
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/addCup" />
 
@@ -85,6 +93,7 @@
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/addCustom" />
 

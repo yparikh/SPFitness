@@ -6,14 +6,26 @@ import androidx.lifecycle.ViewModel;
 
 public class HealthViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private MutableLiveData<Float> userWaterDrank;
+    private MutableLiveData<Float> userWaterGoal;
+    private MutableLiveData<Boolean> firstTime;
+    private MutableLiveData<String> userVolPref;
 
     public HealthViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is Health fragment");
+        firstTime = new MutableLiveData<>();
+        userWaterDrank = new MutableLiveData<>();
+        userWaterGoal = new MutableLiveData<>();
+        userVolPref = new MutableLiveData<>();
+
+        firstTime.setValue(Boolean.TRUE);
+        userWaterDrank.setValue((float) 0);
+        userWaterGoal.setValue((float) 1893);
+        userVolPref.setValue("ml");
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
+    MutableLiveData<Boolean> getFirstTime() {return firstTime;}
+    MutableLiveData<Float> getUserDrank() {return userWaterDrank;}
+    MutableLiveData<Float> getUserWaterGoal() {return userWaterGoal;}
+    MutableLiveData<String> getUserVolPref() {return userVolPref;}
+    //LiveData<Boolean> setFirstTime(boolean flagset) {mfirstTime = flagset;}
 }

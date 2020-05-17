@@ -17,16 +17,25 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "emailpass";
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private Map<String, Object> usrData = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         updateUI(currentUser);
     }
 
@@ -61,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            addUserData();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -108,6 +117,27 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void addUserData(){
+        //store UID of current user to firestone
+        String UID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        //add user's display name for reference
+        usrData.put("Name", name);
+        assert name != null;
+        db.collection("/healthData").document(UID).set(usrData, SetOptions.merge()).
+                addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error writing document", e);
+            }
+        });
     }
 
 
