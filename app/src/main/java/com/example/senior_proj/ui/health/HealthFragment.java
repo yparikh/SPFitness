@@ -2,6 +2,7 @@ package com.example.senior_proj.ui.health;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,8 +26,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.senior_proj.AAChartCore.AAChartCoreLib.AAChartCreator.AAChartModel;
+import com.example.senior_proj.AAChartCore.AAChartCoreLib.AAChartCreator.AAChartView;
+import com.example.senior_proj.AAChartCore.AAChartCoreLib.AAChartCreator.AASeriesElement;
+import com.example.senior_proj.AAChartCore.AAChartCoreLib.AAChartEnum.AAChartType;
 import com.example.senior_proj.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hookedonplay.decoviewlib.DecoView;
 import com.hookedonplay.decoviewlib.charts.DecoDrawEffect;
@@ -53,7 +59,9 @@ public class HealthFragment extends Fragment {
     private float userDrank;
     private int cstmAmt = 0;
     private HealthViewModel healthViewModel;
-
+    private AAChartModel aaChartModel;
+    private AAChartView aaChartView;
+    private AAChartView aaChartView2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +71,11 @@ public class HealthFragment extends Fragment {
         circularProgressBar= root.findViewById(R.id.circularProgressBar);
         final TextView textPercentage = (TextView) root.findViewById(R.id.textPercentage);
         final TextView textToGo = (TextView) root.findViewById(R.id.textRemaining);
+        //final AAChartView aaChartView = root.findViewById(R.id.AAChartView);
+
+        TabLayout tabLayout = (TabLayout) root.findViewById(R.id.tabs);
+
+
         healthData.put("User", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
         //create a dialog for the user for their water goal and preference first time
         healthViewModel.getFirstTime().observe(getViewLifecycleOwner(), firstTime -> {
@@ -84,8 +97,49 @@ public class HealthFragment extends Fragment {
         }
         });
 
-        //draw the progress bar with data
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        aaChartView.setVisibility(View.VISIBLE);
+                        //aaChartView2.setVisibility(View.INVISIBLE);
+                        break;
+                    case 1:
+                        aaChartView.setVisibility(View.INVISIBLE);
+                        //aaChartView2.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        //draw the progress bar with data
+        aaChartView = root.findViewById(R.id.AAChartView);
+        //aaChartView.callBack = (AAChartView.AAChartViewCallBack) this;
+        AAChartModel aaChartModel = new AAChartModel()
+                .chartType(AAChartType.Line)
+                .title("Weekly Water Percentage")
+                .backgroundColor("#FFFFFF")
+                .categories(new String[]{"Sun","Mon","Tue","Wed","Thu",
+                "Fri", "Sat"})
+                .dataLabelsEnabled(true)
+                .yAxisVisible(false)
+                .series(new AASeriesElement[]{
+                        new AASeriesElement()
+                                .name("Amount Drank")
+                                .data(new Object[]{700, 600, 900, 1400, 720, 540, 350})
+                });
+        aaChartView.aa_drawChartWithChartModel(aaChartModel);
 
         Button cupAmt = root.findViewById(R.id.cupBtn);
         cupAmt.setOnClickListener(v -> {
@@ -114,6 +168,8 @@ public class HealthFragment extends Fragment {
         });
         return root;
     }
+
+
 
     private void userDialogPreference(View root){
         final String[] volItems = {"Milliliters (ml)", "Ounces (oz)"};
@@ -152,67 +208,5 @@ public class HealthFragment extends Fragment {
                         dialog.dismiss();
                     })
                     .show();
-    }
-
-    private void createBackSeries() {
-        healthViewModel.getUserWaterGoal().observe(
-                getViewLifecycleOwner(), userWaterGoal-> userGoal = userWaterGoal);
-        SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#FFE2E2E2"))
-                .setRange(0, userGoal, 0)
-                .setInitialVisibility(true)
-                .build();
-
-        mBackIndex = mDecoView.addSeries(seriesItem);
-    }
-
-    private void createDataSeries1(View root) {
-        healthViewModel.getUserWaterGoal().observe(
-                getViewLifecycleOwner(), userWaterGoal-> userGoal = userWaterGoal);
-        healthViewModel.getUserDrank().observe(
-                getViewLifecycleOwner(), userWaterDrank-> userDrank = userWaterDrank);
-        if(userDrank > userGoal){
-            userDrank = userGoal;
-        }
-        final SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#FFFF8800"))
-                .setRange(0, userGoal, userDrank)
-                .setInitialVisibility(true)
-                .build();
-
-        final TextView textPercentage = (TextView) root.findViewById(R.id.textPercentage);
-        seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
-            @Override
-            public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
-                float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
-                textPercentage.setText(String.format("%.0f%%", percentFilled * 100f));
-            }
-
-            @Override
-            public void onSeriesItemDisplayProgress(float percentComplete) {
-
-            }
-        });
-
-        final TextView textToGo = (TextView) root.findViewById(R.id.textRemaining);
-        seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
-            @Override
-            public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
-                textToGo.setText(String.format("%.1f mL to goal", seriesItem.getMaxValue() - currentPosition));
-
-            }
-
-            @Override
-            public void onSeriesItemDisplayProgress(float percentComplete) {
-
-            }
-        });
-
-        mSeries1Index = mDecoView.addSeries(seriesItem);
-    }
-
-    private void createEvents() {
-        //mDecoView.executeReset();
-        mDecoView.addEvent(new DecoEvent.Builder(userGoal)
-                .setIndex(mBackIndex)
-                .build());
     }
 }

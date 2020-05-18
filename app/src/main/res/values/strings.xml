@@ -28,4 +28,6 @@
     <string name="addWater">add water</string>
     <string name="addCup">Add a Cup</string>
     <string name="addCustom">Add a Custom Amount</string>
+    <string name="tab_a_label">Weekly</string>
+    <string name="tab_b_label">Monthly</string>
 </resources>
