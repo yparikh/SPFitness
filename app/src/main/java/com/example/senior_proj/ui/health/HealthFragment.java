@@ -170,7 +170,6 @@ public class HealthFragment extends Fragment {
     }
 
 
-
     private void userDialogPreference(View root){
         final String[] volItems = {"Milliliters (ml)", "Ounces (oz)"};
         final EditText inputGoal = new EditText(this.getContext());
@@ -178,9 +177,6 @@ public class HealthFragment extends Fragment {
         inputGoal.setHint("Enter your daily water goal.");
 
         healthViewModel.getFirstTime().setValue(false);
-        //if(FirebaseAuth.getInstance().getCurrentUser().getMetadata().getCreationTimestamp()
-        //==FirebaseAuth.getInstance().getCurrentUser().getMetadata().getLastSignInTimestamp()){
-
             //Dialog
             //change hard code to resource strings
             new MaterialAlertDialogBuilder(root.getContext())

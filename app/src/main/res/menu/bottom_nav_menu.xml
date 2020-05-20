@@ -4,8 +4,15 @@
 
     <item
         android:id="@+id/navigation_health"
-        android:icon="@drawable/ic_health"
+        android:icon="@drawable/ic_spaghetti"
         android:title="@string/title_health"
+        app:cnb_backgroundColor = "#70ac60"
+        app:cnb_iconColor = "#c9ecf3"
+        app:cnb_textColor = "#c9ecf3"/>
+    <item
+        android:id="@+id/navigation_water"
+        android:icon="@drawable/ic_water"
+        android:title="@string/title_water"
         app:cnb_backgroundColor = "#70ac60"
         app:cnb_iconColor = "#c9ecf3"
         app:cnb_textColor = "#c9ecf3"/>

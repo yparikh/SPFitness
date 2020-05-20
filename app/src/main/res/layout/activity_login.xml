@@ -7,6 +7,7 @@
     android:background="@color/pictonBlue"
     tools:context=".LoginActivity">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,6 +44,7 @@
                 android:layout_marginStart="42dp"
                 android:layout_marginEnd="42dp"
                 android:layout_marginBottom="12dp"
+                android:fontFamily="@font/jost"
                 android:gravity="center"
                 android:text="@string/TV_signintext"
                 android:textAllCaps="true"
@@ -61,11 +63,12 @@
                 android:layout_marginStart="160dp"
                 android:layout_marginEnd="155dp"
                 android:layout_marginBottom="129dp"
-                android:elevation="16dp"
-                android:onClick="signUpClick"
                 android:backgroundTint="@color/honeysuckle"
-                android:textColor="@color/pictonBlue"
+                android:elevation="16dp"
+                android:fontFamily="@font/jost"
+                android:onClick="signUpClick"
                 android:text="@string/But_CreateAccount"
+                android:textColor="@color/pictonBlue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -79,6 +82,7 @@
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/honeysuckle"
                 android:elevation="16dp"
+                android:fontFamily="@font/jost"
                 android:onClick="logInClick"
                 android:text="@string/BT_login"
                 android:textColor="@color/pictonBlue"
@@ -103,6 +107,7 @@
                     android:autofillHints=""
                     android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
                     android:ems="10"
+                    android:fontFamily="@font/jost"
                     android:hint="@string/et_password"
                     android:inputType="textPassword"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -119,6 +124,7 @@
                     android:autofillHints=""
                     android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
                     android:ems="10"
+                    android:fontFamily="@font/jost"
                     android:hint="@string/eT_email"
                     android:inputType="textEmailAddress"
                     app:layout_constraintBottom_toTopOf="@+id/passText"
@@ -132,6 +138,7 @@
                     android:layout_marginStart="170dp"
                     android:layout_marginTop="232dp"
                     android:layout_marginEnd="182dp"
+                    android:fontFamily="@font/jost"
                     android:text="@string/TV_loginDesc"
                     android:textAlignment="center"
                     android:textColor="@color/honeysuckle"

@@ -17,8 +17,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        app:menu="@menu/menu"
-        />
+        android:theme="@style/AppTheme"
+        app:menu="@menu/menu" />
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav"

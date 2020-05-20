@@ -6,7 +6,7 @@ android:id="@+id/mobile_navigation"
 app:startDestination="@+id/navigation_home">
 
 <fragment
-    android:id="@+id/navigation_health"
+    android:id="@+id/navigation_water"
     android:name="com.example.senior_proj.ui.health.HealthFragment"
     android:label="@string/title_health"
     tools:layout="@layout/fragment_health"/>
