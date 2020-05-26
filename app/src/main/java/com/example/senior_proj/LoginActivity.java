@@ -2,33 +2,35 @@ package com.example.senior_proj;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
-import android.app.ActionBar;
-import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "emailpass";
@@ -37,9 +39,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private Map<String, Object> usrData = new HashMap<>();
 
+    //Context context = getActivity();
+    boolean firstTime;
+    //boolean firstTime = settings.getBoolean("firstTime", true);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        firstTime = sharedPreferences.getBoolean("firstTime", true);
         setContentView(R.layout.activity_login);
         statusBarColor("#4fa8f2");
         mAuth = FirebaseAuth.getInstance();
@@ -69,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            addUserData();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -102,9 +110,18 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void updateUI(FirebaseUser currentUser) {
+        boolean test = true;
         if(currentUser != null){
             if(currentUser.isEmailVerified()) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                Intent intent;
+                if(test){
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("firstTime", firstTime);
+                }
+                else{
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                }
                 startActivity(intent);
                 finish();
             }
@@ -119,26 +136,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void addUserData(){
-        //store UID of current user to firestone
-        String UID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-        String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        //add user's display name for reference
-        usrData.put("Name", name);
-        assert name != null;
-        db.collection("/healthData").document(UID).set(usrData, SetOptions.merge()).
-                addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error writing document", e);
-            }
-        });
-    }
 
 
 

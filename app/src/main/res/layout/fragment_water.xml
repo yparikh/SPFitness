@@ -8,7 +8,7 @@
     android:paddingTop="?android:attr/actionBarSize"
     android:background="@color/mintTulip"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".ui.health.HealthFragment">
+    tools:context=".ui.water.WaterFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

@@ -9,8 +9,8 @@
     <string name="title_activity_main_page">mainPage</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
-    <string name="IV_login_desc">Fitness Tracker Image</string>
-    <string name="IV_signup_desc">Healthy Lifestyle Image</string>
+    <string name="IV_login_desc">Lady Running Fitness</string>
+    <string name="IV_signup_desc">Cherry Blossom Park Outdoors</string>
     <string name="et_signup_name"> Name</string>
     <string name="BT_verify_email"> Authenticate Email</string>
     <string name="title_activity_main">MainActivity</string>
@@ -31,4 +31,13 @@
     <string name="tab_a_label">Weekly</string>
     <string name="tab_b_label">Monthly</string>
     <string name="title_water">Water</string>
+    <string name="preference_file_key">prefkey</string>
+    <string name="list_desc">Menu Dialog List Checking Image</string>
+    <string name="menuweightlabel">Weight (lb)</string>
+    <string name="menuwaterlabel">Water Goal (ml)</string>
+    <string name="menuheightlabel">Height (in)</string>
+    <string name="welcomeMenuDialogText">Welcome, please enter your weight, height, and amount of water for your goal. These values can be updated in the settings at any time.</string>
+    <string name="welcomeTitleMenuDialog">Welcome!</string>
+    <string name="BTsaveMenuDialog">SAVE</string>
+    <string name="requiredErrorText">*required</string>
 </resources>

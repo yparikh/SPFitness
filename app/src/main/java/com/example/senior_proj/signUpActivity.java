@@ -15,21 +15,33 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.*;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class signUpActivity extends AppCompatActivity {
     private static final String TAG = "emailpass" ;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private Map<String, Object> usrData = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        statusBarColor("#f2cf9a");
+        statusBarColor("#fab2be");
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -117,10 +129,34 @@ public class signUpActivity extends AppCompatActivity {
                         }
                     }
                 });
+        addUserData();
         Intent i=new Intent(this, LoginActivity.class);
         //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         finish();
+    }
+
+    private void addUserData(){
+        //store UID of current user to firestone
+        String UID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        //add user's display name for reference
+        usrData.put("Name", name);
+        //Mark the first time the user logs in as true
+        usrData.put("firstTime", true);
+        assert name != null;
+        db.collection("/healthData").document(UID).set(usrData, SetOptions.merge()).
+                addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error writing document", e);
+            }
+        });
     }
 
 }

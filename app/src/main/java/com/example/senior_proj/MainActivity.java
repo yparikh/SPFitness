@@ -1,43 +1,28 @@
 package com.example.senior_proj;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.senior_proj.ui.MenuDialog;
 import com.example.senior_proj.ui.fitness.FitnessFragment;
-import com.example.senior_proj.ui.health.HealthFragment;
+import com.example.senior_proj.ui.water.WaterFragment;
 import com.example.senior_proj.ui.home.HomeFragment;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "mainactivity" ;
@@ -46,15 +31,36 @@ public class MainActivity extends AppCompatActivity {
     private ChipNavigationBar bottomNav;
     private FragmentManager fragmentManager;
     private Toolbar toolbar;
+    SharedPreferences settings;
+    boolean firstTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
+        //boolean firstTime = settings.getBoolean("firstTime", true);
+        firstTime = settings.getBoolean("firstTime", true);
+        boolean fT = getIntent().getBooleanExtra("firstTime", false);
+
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
         setBottomNavUI(savedInstanceState);
+        if(true){
+            showDialog();
+        }
+    }
+
+    public void showDialog() {
+        MenuDialog.display(getSupportFragmentManager());
+
+        if (firstTime) {
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("firstTime", false);
+            editor.apply();
+
+        }
     }
 
     @Override
@@ -75,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
     public void signOutUser(){
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, LoginActivity.class);
-        //startActivity(intent);
-
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -90,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState==null){
             bottomNav.setItemSelected(R.id.navigation_home, true);
             fragmentManager = getSupportFragmentManager();
-            HomeFragment homefragmment = new HomeFragment();
+            HomeFragment homefragment = new HomeFragment();
             fragmentManager.beginTransaction().
-                    replace(R.id.fragment_container, homefragmment).commit();
+                    replace(R.id.fragment_container, homefragment).commit();
 
 
         }
@@ -110,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
                                 ("#254175"));
                         setStatusBarColor("#BC7F2A");
                         break;
-                    case R.id.navigation_health:
-                        fragment = new HealthFragment();
+                    case R.id.navigation_water:
+                        fragment = new WaterFragment();
                         toolbar.setBackgroundColor(Color.parseColor("#70ac60"));
                         toolbar.setTitle("Health");
                         toolbar.setTitleTextColor(Color.parseColor("#c9ecf3"));
