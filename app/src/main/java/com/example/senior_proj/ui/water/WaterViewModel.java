@@ -2,10 +2,13 @@ package com.example.senior_proj.ui.water;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,6 +42,20 @@ public class WaterViewModel extends ViewModel {
         userWaterGoal = new MutableLiveData<>();
         userWaterDrank = new MutableLiveData<>();
         //userWaterDrank.setValue((float) 0);
+        db.collection("/healthData")
+                .document(UID).collection("waterData")
+                .document("waterGoal").get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        DocumentSnapshot doc = task.getResult();
+                        assert doc != null;
+                        if(doc.exists()){
+                            float tempGoal = (long) doc.get("waterGoal");
+                            userWaterGoal.setValue(tempGoal);
+                        }
+                    }
+                });
+
         DocumentReference docRef = db.collection("/healthData")
                 .document(UID).collection("waterData").document(formattedDate);
         // Get the document, forcing the SDK to use the offline cache
@@ -50,18 +67,14 @@ public class WaterViewModel extends ViewModel {
 
             if (snapshot != null && snapshot.exists()) {
                 Log.d(TAG, "Current data: " + snapshot.getData());
-                float savedGoal = (long) snapshot.get("u");
-                //userWaterGoal.setValue(savedGoal);
+                Double savedGoal = (double) snapshot.get("userDrank");
+                float convertedGoal = savedGoal.floatValue();
+                userWaterDrank.setValue(convertedGoal);
             } else {
                 Log.d(TAG, "Current data: null");
             }
         });
 
-
-
-
-
-        //userWaterGoal.setValue((float) 1893);
     }
 
     MutableLiveData<Float> getUserDrank() {return userWaterDrank;}

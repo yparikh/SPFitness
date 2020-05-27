@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -33,6 +34,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.SetOptions;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.text.SimpleDateFormat;
@@ -59,7 +61,7 @@ public class WaterFragment extends Fragment {
     private String UID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
     private Date currentTime = Calendar.getInstance().getTime();
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    String formattedDate = df.format(currentTime);
+    private String formattedDate = df.format(currentTime);
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,28 +70,29 @@ public class WaterFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_water, container, false);
 
         //add today's
-        DocumentReference docIdRef = db.collection("/healthData")
-                .document(UID).collection("waterData").document(formattedDate);
-        docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "Document exists!");
-                    } else {
-                        Log.d(TAG, "Document does not exist!");
-                        Map<String, Object> newDateData = new HashMap<>();
-                        newDateData.put("userDrank", 0);
-                        db.collection("/healthData")
-                                .document(UID).collection("waterData")
-                                .document(formattedDate).set(newDateData);
-                    }
-                } else {
-                    Log.d(TAG, "Failed with: ", task.getException());
-                }
-            }
-        });
+//        DocumentReference docIdRef = db.collection("/healthData")
+////                .document(UID).collection("waterData").document(formattedDate);
+////        docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+////            @Override
+////            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+////                if (task.isSuccessful()) {
+////                    DocumentSnapshot document = task.getResult();
+////                    //assert document != null;
+////                    if (document.exists()) {
+////                        Log.d(TAG, "Document exists!");
+////                    } else {
+////                        Log.d(TAG, "Document does not exist!");
+////                        Map<String, Object> newDateData = new HashMap<>();
+////                        newDateData.put("userDrank", 0);
+////                        db.collection("/healthData")
+////                                .document(UID).collection("waterData")
+////                                .document(formattedDate).set(newDateData);
+////                    }
+////                } else {
+////                    Log.d(TAG, "Failed with: ", task.getException());
+////                }
+////            }
+////        });
 
         circularProgressBar = root.findViewById(R.id.circularProgressBar);
         final TextView textPercentage = root.findViewById(R.id.textPercentage);
@@ -99,30 +102,19 @@ public class WaterFragment extends Fragment {
         Button cupAmt = root.findViewById(R.id.cupBtn);
         Button cstmBtn = root.findViewById(R.id.customBtn);
 
-//        waterViewModel.getUserWaterGoal().observe(
-//                getViewLifecycleOwner(), new Observer<Float>() {
-//                    @Override
-//                    public void onChanged(Float userWaterGoal) {
-//                        circularProgressBar.setProgressMax(userWaterGoal);
-//                        circularProgressBar.setProgress(userDrank);
-//                        float percentFilled = userDrank / userWaterGoal;
-//                        textPercentage.setText(String.format(Locale.getDefault(), "%.0f%%", percentFilled * 100f));
-//                        textToGo.setText(String.format(Locale.getDefault(), "%.1f mL to goal", userWaterGoal - userDrank));
-//                    }
-//                });
-
         waterViewModel.getUserDrank().observe(
-                getViewLifecycleOwner(), new Observer<Float>() {
-                    @Override
-                    public void onChanged(Float userWaterDrank) {
-                        circularProgressBar.setProgressMax(userGoal);
+                getViewLifecycleOwner(), userWaterDrank -> {
+                    Float goal = waterViewModel.getUserWaterGoal().getValue();
+                    if (goal != null) {
+                        circularProgressBar.setProgressMax(goal);
                         circularProgressBar.setProgress(userWaterDrank);
-                        float percentFilled = userWaterDrank / userGoal;
+                        float percentFilled = userWaterDrank / goal;
                         textPercentage.setText(String.format(Locale.getDefault(), "%.0f%%", percentFilled * 100f));
-                        textToGo.setText(String.format(Locale.getDefault(), "%.1f mL to goal", userGoal - userWaterDrank));
+                        textToGo.setText(String.format(Locale.getDefault(), "%.1f mL to goal", goal - userWaterDrank));
+
+
                     }
-                }
-        );
+                });
 
 //        MediatorLiveData mediatorLiveData = new MediatorLiveData<>();
 //        mediatorLiveData.addSource(waterViewModel.getUserWaterGoal(), new Observer() {
@@ -193,12 +185,21 @@ public class WaterFragment extends Fragment {
 
     private void cupBtnListener(Button cupAmt, TextView textPercentage, TextView textToGo){
         cupAmt.setOnClickListener(v -> {
-            userDrank += 237;
+            Map<String, Object> waterData = new HashMap<>();
+            Float drank = waterViewModel.getUserDrank().getValue();
+            if(drank != null){
+                userDrank = drank;
+                userDrank += 237;
+            }
             waterViewModel.getUserDrank().setValue(userDrank);
+            waterData.put("userDrank", userDrank);
             circularProgressBar.setProgressWithAnimation(userDrank, (long) 1000);
-            float pfilled = userDrank / userGoal;
-            textPercentage.setText(String.format(Locale.getDefault(), "%.0f%%", pfilled * 100f));
-            textToGo.setText(String.format(Locale.getDefault(), "%.1f mL to goal", userGoal - userDrank));
+            db.collection("/healthData").document(UID)
+                    .collection("waterData").document(formattedDate)
+                    .set(waterData, SetOptions.merge());
+            //float pfilled = userDrank / userGoal;
+            //textPercentage.setText(String.format(Locale.getDefault(), "%.0f%%", pfilled * 100f));
+            //textToGo.setText(String.format(Locale.getDefault(), "%.1f mL to goal", userGoal - userDrank));
 
         });
     }
