@@ -17,11 +17,15 @@ app:startDestination="@+id/navigation_home">
     android:label="@string/title_home"
     tools:layout="@layout/fragment_home" />
 
-
-
 <fragment
     android:id="@+id/navigation_fitness"
     android:name="com.example.senior_proj.ui.fitness.FitnessFragment"
     android:label="@string/title_fitness"
     tools:layout="@layout/fragment_fitness" />
+
+<fragment
+    android:id="@+id/navigation_health"
+    android:name="com.example.senior_proj.ui.health.HealthFragment"
+    android:label="@string/title_health"
+    tools:layout="@layout/fragment_health" />
 </navigation>

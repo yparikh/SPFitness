@@ -133,7 +133,7 @@ public class AAChartView extends WebView {
         this.isClearBackgroundColor = false;
         this.getSettings().setJavaScriptEnabled(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            this.setWebContentsDebuggingEnabled(true);
+            setWebContentsDebuggingEnabled(true);
         }
         //把当前对象作为androidObject别名传递给js
         //js通过window.androidObject.androidMethod()就可以直接调用安卓的androidMethod方法

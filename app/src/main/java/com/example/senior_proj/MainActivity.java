@@ -1,8 +1,10 @@
 package com.example.senior_proj;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +14,7 @@ import android.view.WindowManager;
 
 import com.example.senior_proj.ui.MenuDialog;
 import com.example.senior_proj.ui.fitness.FitnessFragment;
+import com.example.senior_proj.ui.health.HealthFragment;
 import com.example.senior_proj.ui.water.WaterFragment;
 import com.example.senior_proj.ui.home.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,42 +27,69 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "mainactivity" ;
-    private FirebaseAuth mAuth;
+import java.util.Objects;
 
-    private ChipNavigationBar bottomNav;
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActTAG";
+    String PREF_NAME = "seniorProjPref";
+
     private FragmentManager fragmentManager;
     private Toolbar toolbar;
     SharedPreferences settings;
     boolean firstTime;
 
+    /**
+     * This method will set up the display of the Main Activity by setting the view with the layout
+     * xml, adding a toolbar and giving it a title, and set up the bottom navigation UI that will
+     * be used to navigate the different fragments. This method will also check if the LoginActivity
+     * has included extra data through intent. IF this is the first time entering the MainActivity,
+     * the user will be shown a menu Dialog, otherwise the user will be shown the home screen.
+     *
+     * @param savedInstanceState Bundle object containing activity's previously saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        settings = PreferenceManager.getDefaultSharedPreferences(this);
-        //boolean firstTime = settings.getBoolean("firstTime", true);
-        firstTime = settings.getBoolean("firstTime", true);
-        boolean fT = getIntent().getBooleanExtra("firstTime", false);
 
+        settings = MainActivity.this.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        firstTime = settings.getBoolean( Objects.requireNonNull(FirebaseAuth.getInstance().
+                getCurrentUser()).getUid(), true);
+        boolean firstTimeExtra = getIntent().getBooleanExtra
+                ("firstTime", false);
+
+        //toolbar setup
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
+
+        //set up the bottom navigation
         setBottomNavUI(savedInstanceState);
-        if(true){
+
+        //true for testing else firstTimeExtra
+        //If the extra data attached to the intent is true, show the menu dialog to the user
+        if(firstTimeExtra){
             showDialog();
         }
     }
 
+    /**
+     * This method will display the welcome menu dialog to the user. The details will be included
+     *  in the MenuDialog Fragment Class. This menu dialog will ask the user to input their
+     *  weight, height, and water goal. This information will be used to set up all of the fragments
+     */
     public void showDialog() {
+        //display the menuDialog to the user
         MenuDialog.display(getSupportFragmentManager());
 
+        //if this is the first time the user has logged in, change the value to false so the menu
+        // does not appear again
         if (firstTime) {
             SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("firstTime", false);
+            //changes the boolean value from true to false in the sharedpreference file
+            editor.putBoolean(Objects.requireNonNull(FirebaseAuth.getInstance().
+                    getCurrentUser()).getUid(), false);
             editor.apply();
-
         }
     }
 
@@ -87,10 +117,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setBottomNavUI(Bundle savedInstanceState){
         toolbar = findViewById(R.id.toolbar);
-        bottomNav = findViewById(R.id.bottom_nav);
-        toolbar.setBackgroundColor(Color.parseColor("#f7b63c"));
-        toolbar.setTitleTextColor(Color.parseColor("#254175"));
-        setStatusBarColor("#BC7F2A");
+        ChipNavigationBar bottomNav = findViewById(R.id.bottom_nav);
+        toolbar.setBackgroundColor(Color.parseColor("#f1b902"));
+        toolbar.setTitleTextColor(Color.parseColor("#5d36c1"));
+        setStatusBarColor("#B68C02");
         if(savedInstanceState==null){
             bottomNav.setItemSelected(R.id.navigation_home, true);
             fragmentManager = getSupportFragmentManager();
@@ -101,52 +131,65 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        bottomNav.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(int id) {
-                Fragment fragment = null;
-                switch (id){
-                    case R.id.navigation_home:
-                        fragment = new HomeFragment();
-                        toolbar.setBackgroundColor(Color.parseColor("#f7b63c"));
-                        toolbar.setTitle("Home");
-                        toolbar.setTitleTextColor(Color.parseColor
-                                ("#254175"));
-                        setStatusBarColor("#BC7F2A");
-                        break;
-                    case R.id.navigation_water:
-                        fragment = new WaterFragment();
-                        toolbar.setBackgroundColor(Color.parseColor("#70ac60"));
-                        toolbar.setTitle("Health");
-                        toolbar.setTitleTextColor(Color.parseColor("#c9ecf3"));
-                        setStatusBarColor("#4E7E43");
-                        break;
-                    case R.id.navigation_fitness:
-                        fragment = new FitnessFragment();
-                        toolbar.setBackgroundColor(Color.parseColor("#973111"));
-                        toolbar.setTitle("Fitness");
-                        toolbar.setTitleTextColor(Color.parseColor("#e0b46e"));
-                        setStatusBarColor("#7C220C");
-                        break;
-                }
-                if(fragment!=null){
-                    fragmentManager = getSupportFragmentManager();
-                    fragmentManager.beginTransaction().
-                            replace(R.id.fragment_container, fragment).commit();
-                }
-                else{
-                    Log.e(TAG, "error fragment creation");
-                }
+        bottomNav.setOnItemSelectedListener(id -> {
+            Fragment fragment = null;
+            switch (id){
+                case R.id.navigation_home:
+                    fragment = new HomeFragment();
+                    toolbar.setBackgroundColor(Color.parseColor("#f1b902"));
+                    toolbar.setTitle("Home");
+                    toolbar.setTitleTextColor(Color.parseColor
+                            ("#5d36c1"));
+                    toolbar.getOverflowIcon().setTint(Color.parseColor("#5d36c1"));
+                    setStatusBarColor("#B68C02");
+                    break;
+                case R.id.navigation_water:
+                    fragment = new WaterFragment();
+                    toolbar.setBackgroundColor(Color.parseColor("#3917e7"));
+                    toolbar.setTitle("Water");
+                    toolbar.getOverflowIcon().setTint(Color.parseColor("#d4f8fd"));
+                    toolbar.setTitleTextColor(Color.parseColor("#d4f8fd"));
+                    setStatusBarColor("#2A11A7");
+                    break;
+                case R.id.navigation_health:
+                    fragment = new HealthFragment();
+                    toolbar.setBackgroundColor(Color.parseColor("#dcae63"));
+                    toolbar.setTitle("Nutrition");
+                    toolbar.setTitleTextColor(Color.parseColor("#f8f2dc"));
+                    toolbar.getOverflowIcon().setTint(Color.parseColor("#f8f2dc"));
+                    setStatusBarColor("#D59F48");
+                    break;
+                case R.id.navigation_fitness:
+                    fragment = new FitnessFragment();
+                    toolbar.setBackgroundColor(Color.parseColor("#b83d74"));
+                    toolbar.setTitle("Fitness");
+                    toolbar.setTitleTextColor(Color.parseColor("#fbc353"));
+                    toolbar.getOverflowIcon().setTint(Color.parseColor("#fbc353"));
+                    setStatusBarColor("#7C220C");
+                    break;
+            }
+            if(fragment!=null){
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().
+                        replace(R.id.fragment_container, fragment).commit();
+            }
+            else{
+                Log.e(TAG, "error fragment creation");
             }
         });
     }
 
+    /**
+     * This method clears the previous color of the status bar and redraws it
+     * with the color specified.
+     *
+     * @param color This is the color that will be used to color in the status bar. This color
+     *              should be darker than the Title Bar color.
+     */
     public void setStatusBarColor(String color){
-        Window window =getWindow();
+        Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(Color.parseColor(color));
     }
-
-
 }

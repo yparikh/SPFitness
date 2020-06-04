@@ -95,35 +95,17 @@
             android:layout_width="117dp"
             android:layout_height="59dp"
             android:layout_marginStart="164dp"
+            android:layout_marginTop="39dp"
             android:layout_marginEnd="163dp"
-            android:layout_marginBottom="31dp"
             android:backgroundTint="@color/eastBay"
             android:elevation="16dp"
             android:fontFamily="@font/jost"
             android:onClick="signUpIClick"
             android:text="@string/But_CreateAccount"
             android:textColor="@color/lavenderPink"
-            app:layout_constraintBottom_toTopOf="@+id/BT_verify"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/BT_verify"
-            android:layout_width="205dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="120dp"
-            android:layout_marginEnd="119dp"
-            android:layout_marginBottom="60dp"
-            android:backgroundTint="@color/eastBay"
-            android:elevation="16dp"
-            android:fontFamily="@font/jost"
-            android:onClick="verifyEmail"
-            android:text="@string/BT_verify_email"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:visibility="invisible" />
+            app:layout_constraintTop_toBottomOf="@+id/et_su_pass" />
 
         <TextView
             android:id="@+id/textView3"

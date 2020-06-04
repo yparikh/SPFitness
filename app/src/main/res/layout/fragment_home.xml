@@ -6,35 +6,202 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="72dp"
-    android:background="@color/astronaut"
+    android:background="@color/purpleHeart"
     android:paddingTop="?android:attr/actionBarSize"
     tools:context=".ui.home.HomeFragment">
 
-    <com.google.android.material.card.MaterialCardView
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:elevation="8dp">
-
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <!-- Title, secondary and supporting text -->
-            <TextView
-                android:id="@+id/TV_home_title"
-                android:layout_width="wrap_content"
+            <!--title card-->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/MCVwelcome"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/jost"
-                android:text="@string/title_empty"
-                android:textAlignment="viewStart"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
+                android:layout_margin="8dp"
+                android:elevation="8dp">
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- Title, secondary and supporting text -->
+                    <TextView
+                        android:id="@+id/TV_home_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@string/title_empty"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5" />
+
+                    <ImageView
+                        android:id="@+id/IVTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="153dp"
+                        android:contentDescription="@string/welcomeImageText"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_cityscape_morning" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+            <!--fitness card-->
+            <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:elevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/IVFitnessDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/welcomeImageText"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_bikingfamily" />
+
+                    <!-- Title, secondary and supporting text -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title, secondary and supporting text -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/MCVfitnessTitle"
+                            android:textAppearance="?attr/textAppearanceHeadline6"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/MCVfitnessSupportingText"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="?android:attr/textColorSecondary"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+            <!--hydration card-->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:elevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/IVWaterDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/healthImageText"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_hydration" />
+
+                    <!-- Title, secondary and supporting text -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title, secondary and supporting text -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/MCVwaterTitle"
+                            android:textAppearance="?attr/textAppearanceHeadline6"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/MCVwaterSupportingText"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="?android:attr/textColorSecondary"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+            <!--nutrition card-->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:elevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/IVHealthDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/healthImageText"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_supermarket" />
+
+                    <!-- Title, secondary and supporting text -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title, secondary and supporting text -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/MCVhealthTitle"
+                            android:textAppearance="?attr/textAppearanceHeadline6"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/MCVhealthSupportingText"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="?android:attr/textColorSecondary"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

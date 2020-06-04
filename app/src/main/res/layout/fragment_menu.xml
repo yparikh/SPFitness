@@ -52,10 +52,10 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/welcomeTV"
+                    android:id="@+id/TVwelcome"
                     android:layout_width="304dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@id/otfWeight"
+                    android:layout_alignStart="@id/TILWeight"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="50dp"
                     android:layout_marginBottom="20dp"
@@ -63,21 +63,22 @@
                     android:text="@string/welcomeMenuDialogText" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/otfWeight"
+                    android:id="@+id/TILWeight"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/welcomeTV"
+                    android:layout_width="130dp"
+                    android:layout_height="80dp"
+                    android:layout_below="@id/TVwelcome"
                     android:layout_marginStart="50dp"
-                    android:layout_marginEnd="50dp"
                     android:layout_marginBottom="20dp"
                     android:hint="@string/menuweightlabel"
+                    android:focusable="true"
                     app:errorEnabled="true"
                     app:helperText="*required"
                     app:helperTextEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tietWeight"
+                        android:id="@+id/TIETWeight"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/jost"
@@ -87,22 +88,23 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/otfHeight"
+                    android:id="@+id/TILHeight"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/otfWeight"
+                    android:layout_width="130dp"
+                    android:layout_height="80dp"
+                    android:layout_below="@id/TVwelcome"
                     android:layout_gravity="center"
                     android:layout_marginStart="50dp"
                     android:layout_marginEnd="50dp"
                     android:layout_marginBottom="20dp"
+                    android:layout_toEndOf="@id/TILWeight"
                     android:hint="@string/menuheightlabel"
                     app:errorEnabled="true"
                     app:helperText="@string/requiredErrorText"
                     app:helperTextEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tietHeight"
+                        android:id="@+id/TIETHeight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/jost"
@@ -112,19 +114,87 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/otfWaterPref"
+                    android:id="@+id/TILSex"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="130dp"
+                    android:layout_height="80dp"
+                    android:layout_below="@id/TILWeight"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Sex"
+                    app:errorEnabled="true"
+                    app:helperText="*required"
+                    app:helperTextEnabled="true">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/ACTVsex"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:labelFor="@id/TILSex" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILActivityLevel"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="268dp"
+                    android:layout_height="80dp"
+                    android:layout_below="@id/TILSex"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Activity Level"
+                    app:errorEnabled="true"
+                    app:helperText="*required"
+                    app:helperTextEnabled="true">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/ACTVActivityLevel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:labelFor="@id/TILSex" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILWaterPref"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/otfHeight"
+                    android:layout_height="80dp"
+                    android:layout_below="@id/TILHeight"
                     android:layout_marginStart="50dp"
                     android:layout_marginEnd="50dp"
                     android:layout_marginBottom="20dp"
+                    android:layout_toEndOf="@id/TILSex"
                     android:hint="@string/menuwaterlabel"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tietWater"
+                        android:id="@+id/TIETWater"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost"
+                        android:inputType="number"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILAge"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="107dp"
+                    android:layout_height="80dp"
+                    android:layout_below="@id/TILActivityLevel"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Age"
+                    app:errorEnabled="true"
+                    app:helperText="*required"
+                    app:helperTextEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TIETAge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/jost"
@@ -136,15 +206,17 @@
                 <Button
                     android:id="@+id/saveButton"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="100dp"
-                    android:layout_height="55dp"
-                    android:layout_below="@id/otfWaterPref"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:layout_below="@id/TILActivityLevel"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="117dp"
                     android:layout_marginEnd="50dp"
+                    android:layout_toEndOf="@id/TILAge"
                     android:fontFamily="@font/jost"
                     android:onClick="onClick"
-                    android:text="@string/BTsaveMenuDialog" />
+                    android:text="@string/BTsaveMenuDialog"
+                    android:textColor="@color/cucumber" />
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
     </RelativeLayout>

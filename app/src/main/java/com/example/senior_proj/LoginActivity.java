@@ -33,22 +33,26 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class LoginActivity extends AppCompatActivity {
-    private static final String TAG = "emailpass";
+    private static final String TAG = "loginTAG";
+    String PREF_NAME = "seniorProjPref";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private Map<String, Object> usrData = new HashMap<>();
-
-    //Context context = getActivity();
     boolean firstTime;
-    //boolean firstTime = settings.getBoolean("firstTime", true);
+    SharedPreferences sharedPreferences;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        firstTime = sharedPreferences.getBoolean("firstTime", true);
+        sharedPreferences= LoginActivity.this.getSharedPreferences(
+                PREF_NAME, Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
+        // (getApplicationContext());
+
+
+        //firstTime = sharedPreferences.getBoolean("firstTime", true);
         setContentView(R.layout.activity_login);
         statusBarColor("#4fa8f2");
         mAuth = FirebaseAuth.getInstance();
@@ -115,7 +119,10 @@ public class LoginActivity extends AppCompatActivity {
             if(currentUser.isEmailVerified()) {
 
                 Intent intent;
-                if(test){
+                //firsTime for real
+                //test - for testing
+                firstTime = sharedPreferences.getBoolean(currentUser.getUid(), true);
+                if(firstTime){
                     intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("firstTime", firstTime);
                 }
@@ -135,8 +142,4 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-
-
-
-
 }

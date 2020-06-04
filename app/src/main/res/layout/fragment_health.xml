@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/coconutCream"
+    android:layout_marginBottom="72dp"
+    android:paddingTop="?android:attr/actionBarSize"
+    tools:context=".ui.health.HealthFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/MCVnutrition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Food Search Bar -->
+
+                <TextView
+                    android:id="@+id/TVFoodSearchTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost"
+                    android:text="Food Search"
+                    android:textAppearance="@android:style/TextAppearance.Material.Headline"
+                    android:textColor="@color/roman"
+                    android:textSize="40sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TFfoodSearch"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TVFoodSearchTitle"
+                    android:hint="@string/TILFoodSearchHint"
+                    app:boxStrokeColor="@color/roman"
+                    app:hintTextColor="@color/roman">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TIETfoodSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/foodSearchBtn"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="61dp"
+                    android:layout_below="@id/TVFoodSearchTitle"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/TFfoodSearch"
+                    android:backgroundTint="@color/roman"
+                    android:text="Search"
+                    android:textAlignment="textEnd"
+                    android:textColor="#FFFFFF"
+                    app:icon="@drawable/ic_food"
+                    app:iconTint="#FFFFFF"
+                    app:rippleColor="#FFFFFF" />
+
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/MCVreturn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Food Search Bar -->
+
+                <TextView
+                    android:id="@+id/TVFoodSearchReturn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost"
+                    android:textAppearance="@android:style/TextAppearance.Material.Headline"
+                    android:textColor="@color/roman"
+                    android:textSize="40sp" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</FrameLayout>

@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="72dp"
-    android:background="@color/harvestGold"
+    android:background="@color/saffronMango"
     android:paddingTop="?android:attr/actionBarSize"
     tools:context=".ui.fitness.FitnessFragment">
 
 
     <TextView
-        android:id="@+id/text_notifications"
+        android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="72dp"
     android:paddingTop="?android:attr/actionBarSize"
-    android:background="@color/mintTulip"
+    android:background="@color/Foam"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
     tools:context=".ui.water.WaterFragment">
 
@@ -62,7 +62,7 @@
                         app:cpb_background_progressbar_width="15dp"
                         app:cpb_progress_direction="to_right"
                         app:cpb_progressbar_color_start="#B0EDF5"
-                        app:cpb_progressbar_color_end="#5B36DE"
+                        app:cpb_progressbar_color_end="#3917e7"
                         app:cpb_progressbar_color_direction="bottom_to_top"
                         app:cpb_progressbar_width="20dp"
                         app:cpb_round_border="true" />
@@ -92,7 +92,8 @@
                         android:layout_marginStart="50dp"
                         android:layout_marginEnd="8dp"
                         android:fontFamily="@font/jost"
-                        android:text="@string/addCup" />
+                        android:text="@string/addCup"
+                        android:textColor="@color/persianBlue" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/customBtn"
@@ -102,7 +103,9 @@
                         android:layout_marginStart="40dp"
                         android:layout_marginEnd="8dp"
                         android:fontFamily="@font/jost"
-                        android:text="@string/addCustom" />
+                        android:text="@string/addCustom"
+                        android:textAlignment="center"
+                        android:textColor="@color/persianBlue" />
 
                 </LinearLayout>
 
@@ -125,7 +128,11 @@
                         android:id="@+id/tabs"
                         style="@style/AppTheme.TabLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        app:tabIconTint="@color/persianBlue"
+                        app:tabIndicatorColor="@color/persianBlue"
+                        app:tabRippleColor="@color/persianBlue"
+                        app:tabTextColor="@color/persianBlue">
 
                         <com.google.android.material.tabs.TabItem
                             android:id="@+id/tab1"
@@ -144,6 +151,13 @@
 
                     <com.example.senior_proj.AAChartCore.AAChartCoreLib.AAChartCreator.AAChartView
                         android:id="@+id/AAChartView"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="-29dp" />
+
+                    <com.example.senior_proj.AAChartCore.AAChartCoreLib.AAChartCreator.AAChartView
+                        android:id="@+id/AAChartMonthView"
                         android:layout_width="match_parent"
                         android:layout_height="220dp"
                         android:layout_alignParentBottom="true"

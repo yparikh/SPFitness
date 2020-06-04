@@ -36,8 +36,29 @@
     <string name="menuweightlabel">Weight (lb)</string>
     <string name="menuwaterlabel">Water Goal (ml)</string>
     <string name="menuheightlabel">Height (in)</string>
-    <string name="welcomeMenuDialogText">Welcome, please enter your weight, height, and amount of water for your goal. These values can be updated in the settings at any time.</string>
+    <string name="welcomeMenuDialogText">Welcome, enter your height, weight, sex, activity level,
+        and water goal. The first four factors are part of the Mifflin - St Jeor equation to calculate
+        your daily recommended calorie intake. Your water goal will be used to set your daily
+        water intake goal. These values can be updated in the settings at any time.</string>
     <string name="welcomeTitleMenuDialog">Welcome!</string>
     <string name="BTsaveMenuDialog">SAVE</string>
     <string name="requiredErrorText">*required</string>
+    <string name="user_ID">userID</string>
+    <string name="welcomeImageText">welcome Background Image</string>
+    <string name="MCVfitnessTitle">Fitness</string>
+    <string name="MCVfitnessSupportingText">Visit the Fitness section to view your daily steps, use a stopwatch, or to view and record workouts.</string>
+    <string name="healthImageText">health intro image</string>
+    <string name="MCVwaterTitle">Hydration</string>
+    <string name="MCVwaterSupportingText">Visit the Water section to manage daily water drinking habits. The graphs in this section will also show your weekly and monthly water consumption.</string>
+    <string name="MCVhealthTitle">Nutrition</string>
+    <string name="MCVhealthSupportingText">Visit the health section to log your meals. By logging your meals, you will be able to keep track of the amount of calories, fats, carbs, and protein you have consumed daily.</string>
+    <string name="title_nutrition">Nutrition</string>
+    <string name="TILFoodSearchHint">Search Food Item Here</string>
+
+    <string-array name="sex">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
 </resources>
+
+

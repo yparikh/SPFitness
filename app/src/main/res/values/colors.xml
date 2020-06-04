@@ -10,6 +10,8 @@
     <color name="fruitSalad">#4fab53</color>
     <color name="eastBay">#40518d </color>
     <color name="tropicalBlue">#CEE6F9</color>
+    <color name="iceCold">#b4f8e1</color>
+    <color name="Foam">#d4f8fd</color>
     <color name="persimmon">#ff5a55</color>
     <color name="astronaut">#254175</color>
     <color name="saffron"> #f7b63c</color>
@@ -18,4 +20,14 @@
     <color name="tabasco">#973111</color>
     <color name="harvestGold">#e0b46e</color>
     <color name="lavenderPink">#fab2be</color>
+    <color name="persianBlue">#3917e7</color>
+    <color name="equator">#dcae63</color>
+    <color name="coconutCream">#f8f2dc</color>
+    <color name="amethyst">#a06cc2</color>
+    <color name="corn">#f1b902</color>
+    <color name="dullLavender">#c099e4</color>
+    <color name="purpleHeart">#5d36c1</color>
+    <color name="royalHeath">#b83d74</color>
+    <color name="saffronMango">#fbc353</color>
+    <color name="roman">#dc7163</color>
 </resources>

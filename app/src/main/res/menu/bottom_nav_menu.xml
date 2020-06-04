@@ -2,36 +2,36 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/navigation_health"
-        android:icon="@drawable/ic_spaghetti"
-        android:title="@string/title_health"
-        app:cnb_backgroundColor = "#70ac60"
-        app:cnb_iconColor = "#c9ecf3"
-        app:cnb_textColor = "#c9ecf3"/>
-    <item
-        android:id="@+id/navigation_water"
-        android:icon="@drawable/ic_water"
-        android:title="@string/title_water"
-        app:cnb_backgroundColor = "#70ac60"
-        app:cnb_iconColor = "#c9ecf3"
-        app:cnb_textColor = "#c9ecf3"/>
 
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home"
-        app:cnb_backgroundColor = "#f7b63c"
-        app:cnb_iconColor = "#254175"
-        app:cnb_textColor = "#254175"/>
+        app:cnb_backgroundColor = "#f1b902"
+        app:cnb_iconColor = "#5d36c1"
+        app:cnb_textColor = "#5d36c1"/>
+    <item
+        android:id="@+id/navigation_health"
+        android:icon="@drawable/ic_spaghetti"
+        android:title="@string/title_nutrition"
+        app:cnb_backgroundColor = "#dcae63"
+        app:cnb_iconColor = "#f8f2dc"
+        app:cnb_textColor = "#f8f2dc"/>
+    <item
+        android:id="@+id/navigation_water"
+        android:icon="@drawable/ic_water_bottle"
+        android:title="@string/title_water"
+        app:cnb_backgroundColor = "#3917e7"
+        app:cnb_iconColor = "#d4f8fd"
+        app:cnb_textColor = "#d4f8fd"/>
 
     <item
         android:id="@+id/navigation_fitness"
         android:icon="@drawable/ic_fitness_center_black_24dp"
         android:title="@string/title_fitness"
-        app:cnb_backgroundColor = "#973111"
-        app:cnb_iconColor = "#e0b46e"
-        app:cnb_textColor = "#e0b46e"/>
+        app:cnb_backgroundColor = "#b83d74"
+        app:cnb_iconColor = "#fbc353"
+        app:cnb_textColor = "#fbc353"/>
 
 
 </menu>

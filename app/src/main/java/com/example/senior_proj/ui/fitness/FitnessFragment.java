@@ -32,7 +32,7 @@ public class FitnessFragment extends Fragment {
         fitnessViewModel =
                 ViewModelProviders.of(this).get(FitnessViewModel.class);
         View root = inflater.inflate(R.layout.fragment_fitness, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
+        final TextView textView = root.findViewById(R.id.tv);
         fitnessViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
