@@ -12,12 +12,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.work.Data;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.example.senior_proj.AAChartCore.AAChartCoreLib.AAChartCreator.AAChartModel;
 import com.example.senior_proj.AAChartCore.AAChartCoreLib.AAChartCreator.AAChartView;
 import com.example.senior_proj.AAChartCore.AAChartCoreLib.AAChartCreator.AASeriesElement;
 import com.example.senior_proj.AAChartCore.AAChartCoreLib.AAChartEnum.AAChartType;
+import com.example.senior_proj.NotificationWorker;
 import com.example.senior_proj.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,12 +51,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class WaterFragment extends Fragment {
     private static final String TAG = "waterFragmentTag" ;
     private CircularProgressBar circularProgressBar;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private float userGoal;
+    private String UID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
     private float userDrank =0;
     private int cstmAmt = 0;
     private WaterViewModel waterViewModel;
@@ -58,7 +66,7 @@ public class WaterFragment extends Fragment {
     private AAChartModel aaChartMonthModel = new AAChartModel();
     private AAChartView aaChartView;
     private AAChartView aaChartMonthView;
-    private String UID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
     private LocalDate localDate = LocalDate.now();
     private YearMonth localYearMonth= YearMonth.from(localDate);
     private int dayInCurrentMonth = localDate.getDayOfMonth();
@@ -81,8 +89,27 @@ public class WaterFragment extends Fragment {
 
         aaChartMonthView.setVisibility(View.INVISIBLE);
 
+
+
         if(waterViewModel.getUserDrank().getValue() == null){
             readData((value, valueDrank, list, list7, stringList, stringList7) -> {
+                if (value > valueDrank) {
+                    Data data = new Data.Builder()
+                            .putString(NotificationWorker.TASK_DESC, "Remember to keep drinking water!")
+                            .build();
+                    final PeriodicWorkRequest waterReminderRequest = new PeriodicWorkRequest.Builder(
+                            NotificationWorker.class,
+                            1, TimeUnit.HOURS)
+                            .setInputData(data)
+                            .setInitialDelay(30, TimeUnit.MINUTES)
+                            .addTag("hydration reminder")
+                            .build();
+                    WorkManager.getInstance().enqueueUniquePeriodicWork(
+                            "hydration reminder", ExistingPeriodicWorkPolicy.KEEP,
+                            waterReminderRequest);
+                } else if (value < valueDrank) {
+                    WorkManager.getInstance().cancelAllWorkByTag("hydration reminder");
+                }
                 circularProgressBar.setProgressMax(value);
                 circularProgressBar.setProgressWithAnimation(valueDrank, (long) 1000);
                 String[] weekDates = stringList7.toArray(new String[0]);
@@ -118,70 +145,72 @@ public class WaterFragment extends Fragment {
                                         .data(list.toArray())
                         });
                 aaChartMonthView.aa_drawChartWithChartModel(aaChartMonthModel);
-                Log.d(TAG, "week start "+ Arrays.toString(weekDates));
-                Log.d(TAG, "week names start " + Arrays.toString(list7.toArray()));
+                Log.d(TAG, "week start " + Arrays.toString(weekDates));
+                Log.d(TAG, "week names start " + Arrays.toString(stringList7.toArray()));
                 Log.d(TAG, "month start " + Arrays.toString(monthDates));
-                Log.d(TAG, "month start " + Arrays.toString(list.toArray()));
+                Log.d(TAG, "month names start " + Arrays.toString(stringList.toArray()));
             });
         }
+        else{
+            waterViewModel.getUserDrank().observe(
+                    getViewLifecycleOwner(), userWaterDrank -> {
+                        Float goal = waterViewModel.getUserWaterGoal().getValue();
 
-        waterViewModel.getUserDrank().observe(
-                getViewLifecycleOwner(), userWaterDrank -> {
-                    Float goal = waterViewModel.getUserWaterGoal().getValue();
+                        if (goal != null) {
+                            List<Object> tempObj = waterViewModel.getUserWaterWeek().getValue();
+                            List<String> tempStringNames = waterViewModel.getUserWaterWeekLabel().getValue();
+                            List<Object> monthObj = waterViewModel.getUserWaterMonth().getValue();
+                            List<String> monthStringNames = waterViewModel.getUserWaterMonthLabel().getValue();
+                            assert tempStringNames != null;
+                            assert monthStringNames != null;
+                            String[] weekDates = tempStringNames.toArray(new String[0]);
+                            String[] monthDates = monthStringNames.toArray(new String[0]);
+                            circularProgressBar.setProgressMax(goal);
+                            circularProgressBar.setProgressWithAnimation(userWaterDrank, (long) 1000);
+                            float percentFilled = userWaterDrank / goal;
+                            textPercentage.setText(String.format(Locale.getDefault(),
+                                    "%.0f%%", percentFilled * 100f));
+                            textToGo.setText(String.format(Locale.getDefault(),
+                                    "%.1f mL to goal", goal - userWaterDrank));
 
-                    if (goal != null) {
-                        List<Object> tempObj = waterViewModel.getUserWaterWeek().getValue();
-                        List<String> tempStringNames = waterViewModel.getUserWaterWeekLabel().getValue();
-                        List<Object> monthObj = waterViewModel.getUserWaterMonth().getValue();
-                        List<String> monthStringNames = waterViewModel.getUserWaterMonthLabel().getValue();
-                        assert tempStringNames != null;
-                        assert monthStringNames != null;
-                        String[] weekDates = tempStringNames.toArray(new String[0]);
-                        String[] monthDates = monthStringNames.toArray(new String[0]);
-                        circularProgressBar.setProgressMax(goal);
-                        circularProgressBar.setProgressWithAnimation(userWaterDrank, (long) 1000);
-                        float percentFilled = userWaterDrank / goal;
-                        textPercentage.setText(String.format(Locale.getDefault(),
-                                "%.0f%%", percentFilled * 100f));
-                        textToGo.setText(String.format(Locale.getDefault(),
-                                "%.1f mL to goal", goal - userWaterDrank));
+                            assert tempObj != null;
+                            aaChartModel.chartType(AAChartType.Line)
+                                    .title("Weekly Water Percentage")
+                                    .backgroundColor("#FFFFFF")
+                                    .categories(weekDates)
+                                    .dataLabelsEnabled(true)
+                                    .colorsTheme(new String[]{"#3917e7"})
+                                    .yAxisVisible(false)
+                                    .series(new AASeriesElement[]{
+                                            new AASeriesElement()
+                                                    .name("Amount Drank")
+                                                    .data(tempObj.toArray())
+                                    });
+                            aaChartView.aa_drawChartWithChartModel(aaChartModel);
+                            assert monthObj != null;
+                            aaChartMonthModel.chartType(AAChartType.Line)
+                                    .title("Monthly Water Percentage")
+                                    .backgroundColor("#FFFFFF")
+                                    .categories(monthDates)
+                                    .dataLabelsEnabled(true)
+                                    .colorsTheme(new String[]{"#3917e7"})
+                                    .yAxisVisible(false)
+                                    .series(new AASeriesElement[]{
+                                            new AASeriesElement()
+                                                    .name("Amount Drank")
+                                                    .data(monthObj.toArray())
+                                    });
 
-                        assert tempObj != null;
-                        aaChartModel.chartType(AAChartType.Line)
-                                .title("Weekly Water Percentage")
-                                .backgroundColor("#FFFFFF")
-                                .categories(weekDates)
-                                .dataLabelsEnabled(true)
-                                .colorsTheme(new String[]{"#3917e7"})
-                                .yAxisVisible(false)
-                                .series(new AASeriesElement[]{
-                                        new AASeriesElement()
-                                                .name("Amount Drank")
-                                                .data(tempObj.toArray())
-                                });
-                        aaChartView.aa_drawChartWithChartModel(aaChartModel);
-                        assert monthObj != null;
-                        aaChartMonthModel.chartType(AAChartType.Line)
-                                .title("Monthly Water Percentage")
-                                .backgroundColor("#FFFFFF")
-                                .categories(monthDates)
-                                .dataLabelsEnabled(true)
-                                .colorsTheme(new String[]{"#3917e7"})
-                                .yAxisVisible(false)
-                                .series(new AASeriesElement[]{
-                                        new AASeriesElement()
-                                                .name("Amount Drank")
-                                                .data(monthObj.toArray())
-                                });
+                            aaChartMonthView.aa_drawChartWithChartModel(aaChartMonthModel);
+                            Log.d(TAG, "month" + Arrays.toString(monthDates));
+                            Log.d(TAG, "month" + Arrays.toString(monthStringNames.toArray()));
+                            Log.d(TAG, "week" + Arrays.toString(weekDates));
+                            Log.d(TAG, "week names" + Arrays.toString(tempObj.toArray()));
+                        }
 
-                        aaChartMonthView.aa_drawChartWithChartModel(aaChartMonthModel);
-                        Log.d(TAG, "month" + Arrays.toString(monthDates));
-                        Log.d(TAG, "month" + Arrays.toString(monthStringNames.toArray()));
-                        Log.d(TAG, "week"+ Arrays.toString(weekDates));
-                        Log.d(TAG, "week names" + Arrays.toString(tempObj.toArray()));
-                    }
+                    });
+        }
 
-                });
 
 
         tabListener(tabLayout);
@@ -216,7 +245,7 @@ public class WaterFragment extends Fragment {
                                 Map<String, Object> tempMap;
                                 Map<String, Object> mismatchMap = new HashMap<>();
                                 tempMap = document.getData();
-                                if (dayInCurrentMonth != tempMap.size()) {
+                                if (dayInCurrentMonth-1 != tempMap.size()) {
                                     //for each day passed
                                     int setflag = 0;
                                     if (tempMap.size() == 0) {
@@ -275,7 +304,7 @@ public class WaterFragment extends Fragment {
                                         MonthDay monthDay = MonthDay.from(tempDate);
                                         String formattedDate = monthDay.format(DateTimeFormatter.ofPattern("MM-dd"));
                                         LocalDate startOfWeek = localDate.minus(Period.ofDays(7));
-                                        if (tempDate.getDayOfMonth() > startOfWeek.getDayOfMonth() || tempDate.getDayOfMonth() <8) {
+                                        if (tempDate.isAfter(startOfWeek) || tempDate.isEqual(startOfWeek)) {
                                             listString7.add(String.valueOf(formattedDate));
                                             listobj7.add(mismatchMap.get(key));
                                         }
@@ -298,8 +327,8 @@ public class WaterFragment extends Fragment {
                                                 DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                                         MonthDay monthDay = MonthDay.from(tempDate);
                                         String formattedDate = monthDay.format(DateTimeFormatter.ofPattern("MM-dd"));
-                                        LocalDate startOfWeek = localDate.minus(Period.ofDays(7));
-                                        if (tempDate.getDayOfMonth() > startOfWeek.getDayOfMonth() || tempDate.getDayOfMonth() < 8) {
+                                        LocalDate startOfWeek = localDate.minus(Period.ofDays(6));
+                                        if (tempDate.isAfter(startOfWeek) || tempDate.isEqual(startOfWeek)) {
                                             listString7.add(String.valueOf(formattedDate));
                                             listobj7.add(tempMap.get(key));
                                         }

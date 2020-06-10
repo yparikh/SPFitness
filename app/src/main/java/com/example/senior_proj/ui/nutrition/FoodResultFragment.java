@@ -1,4 +1,4 @@
-package com.example.senior_proj.ui.health;
+package com.example.senior_proj.ui.nutrition;
 
 import android.content.Context;
 import android.os.Bundle;

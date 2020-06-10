@@ -28,8 +28,4 @@ public interface JsonPlaceHolderApi {
     Call<AbridgedFoodItem> getFoodNutrients(@Path("fdcid") Integer fdcID,
                                             @Query("format") String abridged,
                                             @Query("nutrients") ArrayList<Integer> foodNutrients);
-    //,@Query("nutrients") List<Integer> foodNutrients);
-
-
-
 }

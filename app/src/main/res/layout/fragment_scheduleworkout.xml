@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/scheduleWorkoutToolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/keppel"
+            app:title="Schedule Workout" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/keppel"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/TVscheduleTitle"
+            android:layout_width="304dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/jost"
+            android:text="Schedule a workout by entering a date and workout title."
+            android:textSize="30sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILworkout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="224dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TVscheduleTitle"
+            android:layout_centerHorizontal="true"
+            android:hint="Enter Workout Name"
+            app:boxStrokeColor="@color/keppel"
+            app:hintTextColor="@color/keppel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TIETworkoutName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/calendarBtn"
+            android:layout_width="157dp"
+            android:layout_height="71dp"
+            android:layout_below="@id/TILworkout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/keppel"
+            android:text="Pick Date" />
+
+        <Button
+            android:id="@+id/saveWorkoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="77dp"
+            android:layout_below="@id/calendarBtn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/keppel"
+            android:text="Schedule Workout" />
+
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -34,7 +34,7 @@ import java.util.Objects;
 
 public class MenuDialog extends DialogFragment {
 
-    private static final String TAG = "example_dialog";
+    private static final String TAG = "menu_dialog";
 
     private Toolbar toolbar;
     private Button button;
@@ -47,7 +47,6 @@ public class MenuDialog extends DialogFragment {
     private TextInputEditText tietHeight;
     private TextInputEditText tietWeight;
     private TextInputEditText tietWaterGoal;
-    private Spinner spinnerSex;
     AutoCompleteTextView ACTVsex;
     AutoCompleteTextView ACTVactivity;
 
@@ -59,7 +58,9 @@ public class MenuDialog extends DialogFragment {
 
     public static void display(FragmentManager fragmentManager) {
         MenuDialog menuDialog = new MenuDialog();
+        menuDialog.setCancelable(false);
         menuDialog.show(fragmentManager, TAG);
+
     }
 
     @Override
@@ -86,8 +87,6 @@ public class MenuDialog extends DialogFragment {
         tietWaterGoal = view.findViewById(R.id.TIETWater);
         ACTVsex = view.findViewById(R.id.ACTVsex);
         ACTVactivity= view.findViewById(R.id.ACTVActivityLevel);
-
-        //spinnerSex = view.findViewById(R.id.SpinnerSex);
 
         String[] sexArray = new String[] {"Female", "Male"};
         String[] activityArray = new String[] {"Sedentary", "Light Exercise 1-2 Days/Week",
@@ -148,6 +147,9 @@ public class MenuDialog extends DialogFragment {
         int userAge = 10;
         Double userActivityScale = 0.0;
         Double userCalories = 0.0;
+        Double userFats = 0.0;
+        Double userCarbs = 0.0;
+        Double userProtein = 0.0;
        //check if weight, height, sex, and activity level are not empty
         if(Objects.requireNonNull(tietWeight.getText()).toString().equals("")||
                 Objects.requireNonNull(tietHeight.getText()).toString().equals("")||
@@ -185,13 +187,21 @@ public class MenuDialog extends DialogFragment {
             }
             userActivityScale = activityScale(ACTVactivity.getText().toString());
             userCalories = calculateCalories(userHeight, userWeight, userAge, userSex, userActivityScale);
+            //user recommended macronutrients in grams
+            userFats = (userCalories * 0.3) / 9;
+            userCarbs = (userCalories * 0.45) / 4;
+            userProtein = (userCalories * 0.25) / 4;
+            foodCollection.put("userWeight", userWeight);
+            foodCollection.put("userHeight", userHeight);
+            foodCollection.put("userActivityLevel", ACTVactivity.getText().toString());
+            foodCollection.put("userAge", userAge);
+            foodCollection.put("userSex", userSex);
 
-            usrData.put("userWeight", userWeight);
-            usrData.put("userHeight", userHeight);
-            usrData.put("userActivityLevel", ACTVactivity.getText().toString());
-            usrData.put("userAge", userAge);
-            usrData.put("userSex", userSex);
             foodCollection.put("userCalories", userCalories);
+            foodCollection.put("userFats", userFats);
+            foodCollection.put("userCarbs", userCarbs);
+            foodCollection.put("userProtein", userProtein);
+            foodCollection.put("waterGoal", waterGoal);
             waterCollection.put("waterGoal", waterGoal);
 
             db.collection("/healthData").document(UID).
@@ -202,24 +212,12 @@ public class MenuDialog extends DialogFragment {
 
             db.collection("/healthData").document(UID).
                     collection("foodData").
-                    document("dailyCalories").set(foodCollection, SetOptions.merge()).
+                    document("dailyValues").set(foodCollection, SetOptions.merge()).
                     addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully written!"))
                     .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
 
-            db.collection("/healthData").document(UID).set(usrData, SetOptions.merge()).
-                    addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "DocumentSnapshot successfully written!");
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error writing document", e);
-                        }
-            });
-            dismiss();
         }
+        dismiss();
     }
 
     public Double activityScale(String activityLevel){

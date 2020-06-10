@@ -58,10 +58,6 @@ public class HomeFragment extends Fragment {
             IV.setImageResource(R.drawable.ic_cityscapes_night);
             IV.invalidate();
         }
-
-
         return root;
     }
-
-
 }

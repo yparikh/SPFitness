@@ -15,4 +15,10 @@
         <item name="android:fontFamily">@font/jostmed</item>>
     </style>
 
+    <style name="MaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <!-- just override the colors used in the default style -->
+        <item name="colorOnPrimary">@color/coconutCream</item>
+        <item name="colorPrimary">@color/roman</item>
+    </style>
+
 </resources>

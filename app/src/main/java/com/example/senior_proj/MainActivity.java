@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,9 +11,11 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.senior_proj.ui.CreditsDialog;
 import com.example.senior_proj.ui.MenuDialog;
+import com.example.senior_proj.ui.SettingsDialog;
 import com.example.senior_proj.ui.fitness.FitnessFragment;
-import com.example.senior_proj.ui.health.HealthFragment;
+import com.example.senior_proj.ui.nutrition.NutritionFragment;
 import com.example.senior_proj.ui.water.WaterFragment;
 import com.example.senior_proj.ui.home.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,8 +25,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceManager;
 
 import java.util.Objects;
 
@@ -80,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void showDialog() {
         //display the menuDialog to the user
+
         MenuDialog.display(getSupportFragmentManager());
 
         //if this is the first time the user has logged in, change the value to false so the menu
@@ -105,6 +105,14 @@ public class MainActivity extends AppCompatActivity {
             signOutUser();
             return true;
         }
+        else if (item.getItemId() == R.id.mn_settings){
+            showSettings();
+            return true;
+        }
+        else if(item.getItemId() == R.id.mn_credits){
+            showCredits();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -113,6 +121,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    public void showSettings(){
+        SettingsDialog.display(getSupportFragmentManager());
+    }
+
+    public void showCredits(){
+        CreditsDialog.display(getSupportFragmentManager());
     }
 
     public void setBottomNavUI(Bundle savedInstanceState){
@@ -140,32 +156,32 @@ public class MainActivity extends AppCompatActivity {
                     toolbar.setTitle("Home");
                     toolbar.setTitleTextColor(Color.parseColor
                             ("#5d36c1"));
-                    toolbar.getOverflowIcon().setTint(Color.parseColor("#5d36c1"));
+                    Objects.requireNonNull(toolbar.getOverflowIcon()).setTint(Color.parseColor("#5d36c1"));
                     setStatusBarColor("#B68C02");
                     break;
                 case R.id.navigation_water:
                     fragment = new WaterFragment();
                     toolbar.setBackgroundColor(Color.parseColor("#3917e7"));
                     toolbar.setTitle("Water");
-                    toolbar.getOverflowIcon().setTint(Color.parseColor("#d4f8fd"));
+                    Objects.requireNonNull(toolbar.getOverflowIcon()).setTint(Color.parseColor("#d4f8fd"));
                     toolbar.setTitleTextColor(Color.parseColor("#d4f8fd"));
                     setStatusBarColor("#2A11A7");
                     break;
                 case R.id.navigation_health:
-                    fragment = new HealthFragment();
+                    fragment = new NutritionFragment();
                     toolbar.setBackgroundColor(Color.parseColor("#dcae63"));
                     toolbar.setTitle("Nutrition");
                     toolbar.setTitleTextColor(Color.parseColor("#f8f2dc"));
-                    toolbar.getOverflowIcon().setTint(Color.parseColor("#f8f2dc"));
+                    Objects.requireNonNull(toolbar.getOverflowIcon()).setTint(Color.parseColor("#f8f2dc"));
                     setStatusBarColor("#D59F48");
                     break;
                 case R.id.navigation_fitness:
                     fragment = new FitnessFragment();
-                    toolbar.setBackgroundColor(Color.parseColor("#b83d74"));
+                    toolbar.setBackgroundColor(Color.parseColor("#ae343e"));
                     toolbar.setTitle("Fitness");
-                    toolbar.setTitleTextColor(Color.parseColor("#fbc353"));
-                    toolbar.getOverflowIcon().setTint(Color.parseColor("#fbc353"));
-                    setStatusBarColor("#7C220C");
+                    toolbar.setTitleTextColor(Color.parseColor("#f6ddcd"));
+                    Objects.requireNonNull(toolbar.getOverflowIcon()).setTint(Color.parseColor("#f6ddcd"));
+                    setStatusBarColor("#9d2d35");
                     break;
             }
             if(fragment!=null){

@@ -27,7 +27,12 @@
     <color name="corn">#f1b902</color>
     <color name="dullLavender">#c099e4</color>
     <color name="purpleHeart">#5d36c1</color>
-    <color name="royalHeath">#b83d74</color>
-    <color name="saffronMango">#fbc353</color>
+    <color name="mediumCarmine">#ae343e</color>
+    <color name="albescentWhite">#f6ddcd</color>
     <color name="roman">#dc7163</color>
+    <color name="havelockBlue">#6391dc</color>
+    <color name="conifer">#91dc63</color>
+    <color name="chenin">#cedc63</color>
+    <color name="ronchi">#edbc54</color>
+    <color name="keppel">#34aea4</color>
 </resources>

@@ -54,6 +54,15 @@
     <string name="MCVhealthSupportingText">Visit the health section to log your meals. By logging your meals, you will be able to keep track of the amount of calories, fats, carbs, and protein you have consumed daily.</string>
     <string name="title_nutrition">Nutrition</string>
     <string name="TILFoodSearchHint">Search Food Item Here</string>
+    <string name="TVfats">Fats</string>
+    <string name="TVprotein">Protein</string>
+    <string name="TVcarbs">Carbs</string>
+    <string name="TVcalories">Calories</string>
+    <string name="extended_fab_content_desc">floating action button add workout</string>
+    <string name="extended_fab_label">ADD WORKOUT</string>
+    <string name="credits">Credits</string>
+    <string name="settings">Settings</string>
+    <string name="TVsettingsdescription">Update any of the previously entered information here</string>
 
     <string-array name="sex">
         <item>Female</item>
