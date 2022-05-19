@@ -45,7 +45,7 @@ width="200"
     hspace="10" vspace="10">](/readme/Screenshot_hydration.png)
 [<img src="/readme/Screenshot_Fitness.png" align="left"
 width="200"
-    hspace="10" vspace="10">](/readme/Screenshot_Fitness.png)
+    hspace="10" vspace="10">](/readme/Screenshot_Fitness.png)  
 
 ## Credits
 * Visualization Library - https://github.com/AAChartModel/AAChartKit
