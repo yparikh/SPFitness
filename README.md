@@ -34,19 +34,19 @@ The android app lets you:
 
 ## Screenshots
 
-[<img src="/readme/Screenshot_home.png" align="left"
+![<img src="/readme/Screenshot_home.png" align="left"
 width="200"
     hspace="10" vspace="10">](/readme/Screenshot_home.png)
-[<img src="/readme/Screenshot_nutrition.png" align="left"
+![<img src="/readme/Screenshot_nutrition.png" align="left"
 width="200"
     hspace="10" vspace="10">](/readme/Screenshot_nutrition.png)
-[<img src="/readme/Screenshot_hydration.png" align="left"
+![<img src="/readme/Screenshot_hydration.png" align="left"
 width="200"
     hspace="10" vspace="10">](/readme/Screenshot_hydration.png)
-[<img src="/readme/Screenshot_Fitness.png" align="left"
+![<img src="/readme/Screenshot_Fitness.png" align="left"
 width="200"
     hspace="10" vspace="10">](/readme/Screenshot_Fitness.png)  
-
+<br />
 ## Credits
 * Visualization Library - https://github.com/AAChartModel/AAChartKit
 * Round Progressbar Library - https://github.com/akexorcist/RoundCornerProgressBar
