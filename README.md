@@ -32,20 +32,30 @@ The android app lets you:
     - Schedule a reminder for workouts
     - Log workouts to chart physical progress  
 
+## Observer Design Pattern
+<img src="/readme/observer_pattern.png" align="top" width="300" hspace="10" vspace="10"> 
+</br>
+This project implements the Observer pattern. This pattern is one of the many Behaviorial Design Patterns and is used as a method to communciate between classes and objects. The Observer pattern utilizes Observables (Subject), an object we want to observe, and Observers that are notified of such changes. For this android app, the ViewModels for each of the fragments are the Observables since the ViewModel classes are used to manage and store UI related data. Each of the fragments are Observers that will observe any chanages in data that occur in their respective ViewModel. This pattern was applied to the project for a few reasons. First the ViewModel insures that the data is persistent and secure when changing among the fragments. The ViewModel will also track any data that the user adds or updates through the fragments and record them to the Firestore Database.
+
 ## Screenshots
 
-![<img src="/readme/Screenshot_home.png" align="left"
-width="200"
-    hspace="10" vspace="10">](/readme/Screenshot_home.png)
-![<img src="/readme/Screenshot_nutrition.png" align="left"
-width="200"
-    hspace="10" vspace="10">](/readme/Screenshot_nutrition.png)
-![<img src="/readme/Screenshot_hydration.png" align="left"
-width="200"
-    hspace="10" vspace="10">](/readme/Screenshot_hydration.png)
-![<img src="/readme/Screenshot_Fitness.png" align="left"
-width="200"
-    hspace="10" vspace="10">](/readme/Screenshot_Fitness.png)  
+<img src="/readme/Screenshot_home.png" align="left"
+width="200" hspace="10" vspace="10">
+<img src="/readme/Screenshot_nutrition.png" align="left"
+width="200" hspace="10" vspace="10">
+<img src="/readme/Screenshot_hydration.png" align="left"
+width="200" hspace="10" vspace="10">
+<img src="/readme/Screenshot_Fitness.png" align="left"
+width="200" hspace="10" vspace="10">
+
+## Demo
+
+<img src="/readme/Demo_Nutrition.gif" align="left"
+width="200" hspace="10" vspace="10">
+<img src="/readme/Demo_Hydration.gif" align="left"
+width="200" hspace="10" vspace="10">
+<img src="/readme/Demo_Fitness.gif" align="left"
+width="200" hspace="10" vspace="10">
 <br />
 ## Credits
 * Visualization Library - https://github.com/AAChartModel/AAChartKit
