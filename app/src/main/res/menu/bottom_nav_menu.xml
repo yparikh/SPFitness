@@ -29,9 +29,9 @@
         android:id="@+id/navigation_fitness"
         android:icon="@drawable/ic_fitness_center_black_24dp"
         android:title="@string/title_fitness"
-        app:cnb_backgroundColor = "#b83d74"
-        app:cnb_iconColor = "#fbc353"
-        app:cnb_textColor = "#fbc353"/>
+        app:cnb_backgroundColor = "#ae343e"
+        app:cnb_iconColor = "#f6ddcd"
+        app:cnb_textColor = "#f6ddcd"/>
 
 
 </menu>

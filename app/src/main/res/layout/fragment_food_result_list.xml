@@ -11,5 +11,5 @@
     android:layout_marginBottom="72dp"
     android:paddingTop="?android:attr/actionBarSize"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.health.FoodResultFragment"
+    tools:context=".ui.nutrition.FoodResultFragment"
     tools:listitem="@layout/fragment_food_result" />

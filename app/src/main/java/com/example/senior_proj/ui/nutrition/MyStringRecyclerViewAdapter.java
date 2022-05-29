@@ -1,4 +1,4 @@
-package com.example.senior_proj.ui.health;
+package com.example.senior_proj.ui.nutrition;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;

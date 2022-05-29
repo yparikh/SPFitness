@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/coconutCream"
+    android:layout_marginBottom="72dp"
+    android:paddingTop="?android:attr/actionBarSize"
+    tools:context=".ui.nutrition.NutritionFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/MCVnutrition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Food Search Bar -->
+
+                <TextView
+                    android:id="@+id/TVFoodSearchSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TVfoodSearchTitle"
+                    android:fontFamily="@font/jost"
+                    android:text="Enter food you have eaten here. Portions for the results are 100g."
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="@color/roman"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/TVfoodSearchTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost"
+                    android:text="Food Search"
+                    android:textAppearance="@android:style/TextAppearance.Material.Headline"
+                    android:textColor="@color/roman"
+                    android:textSize="27sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TFfoodSearch"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TVFoodSearchSubtitle"
+                    android:hint="@string/TILFoodSearchHint"
+                    app:boxStrokeColor="@color/roman"
+                    app:hintTextColor="@color/roman">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TIETfoodSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/foodSearchBtn"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="61dp"
+                    android:layout_below="@id/TVFoodSearchSubtitle"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/TFfoodSearch"
+                    android:backgroundTint="@color/roman"
+                    android:fontFamily="@font/jost"
+                    android:text="Search"
+                    android:textAlignment="textEnd"
+                    android:textColor="#FFFFFF"
+                    app:icon="@drawable/ic_food"
+                    app:iconTint="#FFFFFF"
+                    app:rippleColor="#FFFFFF" />
+
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/MCVreturn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/TVdateSearchTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost"
+                    android:text="Date Search"
+                    android:textAppearance="@android:style/TextAppearance.Material.Headline"
+                    android:textColor="@color/roman"
+                    android:textSize="27sp" />
+
+                <TextView
+                    android:id="@+id/TVDateSearchSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TVdateSearchTitle"
+                    android:fontFamily="@font/jost"
+                    android:text="Find food you have added by date"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="@color/roman"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/BtnDatePicker"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="156dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/TVDateSearchSubtitle"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/roman"
+                    android:fontFamily="@font/jost"
+                    android:text="Button"
+                    app:icon="@drawable/ic_baseline_date_range_24" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="146dp"
+                    android:layout_height="105dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_toEndOf="@id/TVDateSearchSubtitle"
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/RVuserFoodList"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scrollbars="vertical" />
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/MCVprogressBars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Food Nutrient Graph -->
+
+                <TextView
+                    android:id="@+id/TVDailyProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost"
+                    android:text="Today's Nutrients"
+                    android:textAppearance="@android:style/TextAppearance.Material.Headline"
+                    android:textColor="@color/roman"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/TVcalories"
+                    android:layout_width="55dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/TVDailyProgress"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/jost"
+                    android:text="@string/TVcalories"
+                    android:textSize="15sp" />
+
+                <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
+                    android:id="@+id/TRCPBcalories"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/TVDailyProgress"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toEndOf="@id/TVcalories"
+                    app:rcAnimationEnable="true"
+                    app:rcAnimationSpeedScale="1.5"
+                    app:rcBackgroundColor="#0A000000"
+                    app:rcBackgroundPadding="2dp"
+                    app:rcMax="100"
+                    app:rcProgress="0"
+                    app:rcProgressColor="@color/roman"
+                    app:rcRadius="80dp"
+                    app:rcReverse="false"
+                    app:rcTextPositionPriority="inside"
+                    app:rcTextProgress="0"
+                    app:rcTextProgressColor="#111111">
+
+                </com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar>
+
+                <TextView
+                    android:id="@+id/TVcarbs"
+                    android:layout_width="55dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/TVcalories"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/jost"
+                    android:text="@string/TVcarbs"
+                    android:textSize="15sp" />
+
+                <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
+                    android:id="@+id/TRCPBcarbs"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@id/TVcarbs"
+                    android:layout_below="@id/TRCPBcalories"
+                    app:rcBackgroundColor="#0A000000"
+                    app:rcBackgroundPadding="2dp"
+                    app:rcMax="100"
+                    app:rcProgress="0"
+                    app:rcProgressColor="@color/havelockBlue"
+                    app:rcRadius="80dp"
+                    app:rcReverse="false"
+                    app:rcTextPositionPriority="inside"
+                    app:rcTextProgress="0"
+                    app:rcTextProgressColor="#111111"
+                    app:rcAnimationEnable="true"
+                    app:rcAnimationSpeedScale="1.5">
+
+                </com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar>
+
+                <TextView
+                    android:id="@+id/TVprotein"
+                    android:layout_width="55dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/TVcarbs"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/jost"
+                    android:text="@string/TVprotein"
+                    android:textSize="15sp" />
+
+                <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
+                    android:id="@+id/TRCPBprotein"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@id/TVprotein"
+                    android:layout_below="@id/TRCPBcarbs"
+                    app:rcBackgroundColor="#0A000000"
+                    app:rcBackgroundPadding="2dp"
+                    app:rcMax="100"
+                    app:rcProgress="0"
+                    app:rcProgressColor="@color/conifer"
+                    app:rcRadius="80dp"
+                    app:rcReverse="false"
+                    app:rcTextPositionPriority="inside"
+                    app:rcTextProgress="0"
+                    app:rcTextProgressColor="#111111"
+                    app:rcAnimationEnable="true"
+                    app:rcAnimationSpeedScale="1.5">
+
+                </com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar>
+
+                <TextView
+                    android:id="@+id/TVfats"
+                    android:layout_width="55dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/TVprotein"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/jost"
+                    android:text="@string/TVfats"
+                    android:textSize="15sp" />
+
+                <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
+                    android:id="@+id/TRCPBfats"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@id/TVcalories"
+                    android:layout_below="@id/TRCPBprotein"
+                    app:rcBackgroundColor="#0A000000"
+                    app:rcBackgroundPadding="2dp"
+                    app:rcMax="100"
+                    app:rcProgress="0"
+                    app:rcProgressColor="@color/chenin"
+                    app:rcRadius="80dp"
+                    app:rcReverse="false"
+                    app:rcTextPositionPriority="inside"
+                    app:rcTextProgress="0"
+                    app:rcTextProgressColor="#111111"
+                    app:rcAnimationEnable="true"
+                    app:rcAnimationSpeedScale="1.5">
+
+                </com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</FrameLayout>

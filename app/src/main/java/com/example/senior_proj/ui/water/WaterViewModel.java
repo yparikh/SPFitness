@@ -17,6 +17,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.SetOptions;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -40,6 +41,7 @@ public class WaterViewModel extends ViewModel {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private String UID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+    private ListenerRegistration registration;
 
     private MutableLiveData<Float> userWaterDrank;
     private MutableLiveData<Float> userWaterGoal;
@@ -48,10 +50,8 @@ public class WaterViewModel extends ViewModel {
     private MutableLiveData<List<Object>> userWaterMonth;
     private MutableLiveData<List<String>> userWaterMonthLabel;
 
-
     private LocalDate localDate = LocalDate.now();
     private YearMonth localYearMonth = YearMonth.from(localDate);
-    private ListenerRegistration registration;
 
     public WaterViewModel() {
         userWaterGoal = new MutableLiveData<>();
@@ -70,8 +70,10 @@ public class WaterViewModel extends ViewModel {
                         DocumentSnapshot doc = task.getResult();
                         assert doc != null;
                         if(doc.exists()){
-                            float tempGoal = (long) doc.get("waterGoal");
-                            userWaterGoal.setValue(tempGoal);
+                            Number tempGoal = (Number) doc.get("waterGoal");
+                            assert tempGoal != null;
+                            Float waterGoal = tempGoal.floatValue();
+                            userWaterGoal.setValue(waterGoal);
                         }
                     }
                 });
@@ -107,8 +109,8 @@ public class WaterViewModel extends ViewModel {
                             DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     MonthDay monthDay = MonthDay.from(tempDate);
                     String formattedDate = monthDay.format(DateTimeFormatter.ofPattern("MM-dd"));
-                    LocalDate startOfWeek = localDate.minus(Period.ofDays(7));
-                    if (tempDate.getDayOfMonth() > startOfWeek.getDayOfMonth() || tempDate.getDayOfMonth() < 8) {
+                    LocalDate startOfWeek = localDate.minus(Period.ofDays(6));
+                    if (tempDate.isAfter(startOfWeek)|| tempDate.isEqual(startOfWeek)) {
                         listString7.add(String.valueOf(formattedDate));
                         listobj7.add(mapUserDrank.get(key));
                     }
@@ -120,13 +122,10 @@ public class WaterViewModel extends ViewModel {
                 userWaterWeekLabel.setValue(listString7);
                 userWaterMonth.setValue(listobj);
                 userWaterMonthLabel.setValue(listString);
+
             } else {
                 Log.d(TAG, "Current data: null");
-                Map<String, Object> waterData = new HashMap<>();
-                waterData.put(String.valueOf(localDate), 0);
-                db.collection("/healthData")
-                        .document(UID).collection("waterData")
-                        .document(String.valueOf(localYearMonth)).set(waterData);
+
             }
         });
 

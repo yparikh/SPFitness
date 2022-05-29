@@ -3,6 +3,8 @@
     package="com.example.senior_proj">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+
 
     <application
         android:allowBackup="true"
@@ -23,5 +25,7 @@
             </intent-filter>
         </activity>
     </application>
+
+
 
 </manifest>

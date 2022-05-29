@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/addWorkoutToolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/keppel"
+            app:title="Add Workout" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/keppel"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/TVexerciseTitle"
+            android:layout_width="304dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/jost"
+            android:text="Save your workout by filling out this form."
+            android:textSize="30sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILexercise"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="187dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TVexerciseTitle"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="25dp"
+            android:hint="Enter First Exercise"
+            app:boxStrokeColor="@color/keppel"
+            app:hintTextColor="@color/keppel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TIETexerciseName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILreps"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="67dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TVexerciseTitle"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="25dp"
+            android:layout_toEndOf="@id/TILexercise"
+            android:hint="Reps"
+            app:boxStrokeColor="@color/keppel"
+            app:hintTextColor="@color/keppel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TIETreps"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/jost"
+                android:inputType="number"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILsets"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="61dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TVexerciseTitle"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="25dp"
+            android:layout_toEndOf="@id/TILreps"
+            android:hint="Sets"
+            app:boxStrokeColor="@color/keppel"
+            app:hintTextColor="@color/keppel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TIETsets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost"
+                android:inputType="number"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILexercise2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="187dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TILexercise"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:hint="Enter Second Exercise"
+            app:boxStrokeColor="@color/keppel"
+            app:hintTextColor="@color/keppel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TIETexerciseName2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILreps2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="67dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TILreps"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_toEndOf="@id/TILexercise2"
+            android:hint="Reps"
+            app:boxStrokeColor="@color/keppel"
+            app:hintTextColor="@color/keppel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TIETreps2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/jost"
+                android:inputType="number"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILsets2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="61dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TILsets"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_toEndOf="@id/TILreps2"
+            android:hint="Sets"
+            app:boxStrokeColor="@color/keppel"
+            app:hintTextColor="@color/keppel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TIETsets2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost"
+                android:inputType="number"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILexercise3"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="187dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TILexercise2"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:hint="Enter Third Exercise"
+            app:boxStrokeColor="@color/keppel"
+            app:hintTextColor="@color/keppel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TIETexerciseName3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILreps3"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="67dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TILreps2"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_toEndOf="@id/TILexercise2"
+            android:hint="Reps"
+            app:boxStrokeColor="@color/keppel"
+            app:hintTextColor="@color/keppel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TIETreps3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/jost"
+                android:inputType="number"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILsets3"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="61dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TILsets2"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_toEndOf="@id/TILreps3"
+            android:hint="Sets"
+            app:boxStrokeColor="@color/keppel"
+            app:hintTextColor="@color/keppel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TIETsets3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/jost"
+                android:inputType="number"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/exerciseCalendarBtn"
+            android:layout_width="157dp"
+            android:layout_height="71dp"
+            android:layout_below="@id/TILexercise3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/keppel"
+            android:text="Pick Date" />
+
+        <Button
+            android:id="@+id/addWorkoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="77dp"
+            android:layout_below="@id/exerciseCalendarBtn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/keppel"
+            android:text="Add Workout" />
+
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

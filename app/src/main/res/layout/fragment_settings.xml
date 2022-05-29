@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/settingsToolBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/ronchi"
+            app:title="@string/settings" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/TVsettings"
+                    android:layout_width="304dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/settingsTILWeight"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/jost"
+                    android:text="@string/TVsettingsdescription"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/settingsTILWeight"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="131dp"
+                    android:layout_height="65dp"
+                    android:layout_below="@id/TVsettings"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:focusable="true"
+                    android:hint="@string/menuweightlabel"
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/settingsTIETWeight"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost"
+                        android:inputType="number"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/settingsTILHeight"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="133dp"
+                    android:layout_height="65dp"
+                    android:layout_below="@id/TVsettings"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_toEndOf="@id/settingsTILWeight"
+                    android:hint="@string/menuheightlabel"
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/settingsTIETHeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost"
+                        android:inputType="number"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/settingsTILSex"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="130dp"
+                    android:layout_height="65dp"
+                    android:layout_below="@id/settingsTILWeight"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Sex"
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="true">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/settingsACTVsex"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:labelFor="@id/settingsTILSex" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/settingsTILActivityLevel"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="268dp"
+                    android:layout_height="65dp"
+                    android:layout_below="@id/settingsTILSex"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Activity Level"
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="true">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/settingsACTVActivityLevel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:labelFor="@id/settingsTILSex" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/settingsTILWaterPref"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="143dp"
+                    android:layout_height="65dp"
+                    android:layout_below="@id/settingsTILHeight"
+                    android:layout_marginStart="39dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_toEndOf="@id/settingsTILSex"
+                    android:hint="@string/menuwaterlabel"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/settingsTIETWater"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost"
+                        android:inputType="number"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/settingsTILAge"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="107dp"
+                    android:layout_height="65dp"
+                    android:layout_below="@id/settingsTILActivityLevel"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Age"
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/settingsTIETAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost"
+                        android:inputType="number"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/settingsSaveButton"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:layout_below="@id/settingsTILActivityLevel"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="117dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_toEndOf="@id/settingsTILAge"
+                    android:backgroundTint="@color/ronchi"
+                    android:fontFamily="@font/jost"
+                    android:onClick="onClick"
+                    android:text="@string/BTsaveMenuDialog"
+                    android:textSize="16sp"
+                    app:iconTint="@color/ronchi" />
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
