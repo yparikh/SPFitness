@@ -39,22 +39,22 @@ This project implements the Observer pattern. This pattern is one of the many Be
 
 ## Screenshots
 
-<img src="/readme/Screenshot_home.png" align="left"
+<img src="/readme/Screenshot_home.png" align="top"
 width="200" hspace="10" vspace="10">
-<img src="/readme/Screenshot_nutrition.png" align="left"
+<img src="/readme/Screenshot_nutrition.png" align="top"
 width="200" hspace="10" vspace="10">
-<img src="/readme/Screenshot_hydration.png" align="left"
+<img src="/readme/Screenshot_hydration.png" align="top"
 width="200" hspace="10" vspace="10">
-<img src="/readme/Screenshot_Fitness.png" align="left"
+<img src="/readme/Screenshot_Fitness.png" align="top"
 width="200" hspace="10" vspace="10">
 
 ## Demo
 
-<img src="/readme/Demo_Nutrition.gif" align="left"
+<img src="/readme/Demo_Nutrition.gif" align="top"
 width="200" hspace="10" vspace="10">
-<img src="/readme/Demo_Hydration.gif" align="left"
+<img src="/readme/Demo_Hydration.gif" align="top"
 width="200" hspace="10" vspace="10">
-<img src="/readme/Demo_Fitness.gif" align="left"
+<img src="/readme/Demo_Fitness.gif" align="top"
 width="200" hspace="10" vspace="10">
 <br />
 ## Credits
